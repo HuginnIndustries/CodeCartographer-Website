@@ -10,6 +10,7 @@ Static marketing site for `codecarto.dev`. Built on the Hearth UI design templat
 - `showcase.html` — example outputs, defect scan passes, model compatibility, use cases
 - `site.css` — marketing site styles (imports `colors_and_type.css`)
 - `colors_and_type.css` — canonical design tokens (palette, typography, spacing, shadows)
+- `logo.svg` — CodeCartographer map/matrix brand icon and favicon
 - `script.js` — pipeline switcher, copy buttons, scroll reveals
 - `.htaccess` — Apache config (HTTPS redirect, security headers)
 - `robots.txt` — crawler guidance

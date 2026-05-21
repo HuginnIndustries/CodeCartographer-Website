@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Docs — CodeCartographer</title>
+<meta name="description" content="Installation and configuration: drop-in template, Pi-mono extension, MCP server, pipeline selection, and cPanel deployment.">
+<meta name="theme-color" content="#141413">
+<link rel="canonical" href="https://codecarto.dev/docs.html">
+<link rel="stylesheet" href="site.css">
+<script defer src="script.js"></script>
+</head>
+<body>
+
+<header class="site-nav">
+  <div class="site-nav-inner">
+    <a href="index.html" class="brand">
+      <span class="brand-mark" aria-hidden="true"></span>
+      <span>CodeCartographer</span>
+    </a>
+    <nav>
+      <a href="index.html">Overview</a>
+      <a href="features.html">Features</a>
+      <a href="docs.html" class="active">Docs</a>
+      <a href="showcase.html">Showcase</a>
+    </nav>
+    <a href="https://github.com/HuginnIndustries/CodeCartographer" class="btn btn-secondary">View on GitHub</a>
+  </div>
+</header>
+
+<!-- =================== Page header =============== -->
+<section class="hero" style="padding:72px 0 48px">
+  <div class="container">
+    <div class="hero-eyebrow"><span class="dot"></span> Installation &amp; configuration</div>
+    <h1 style="font-size:clamp(36px, 4.5vw, 56px)">Docs</h1>
+    <p class="hero-sub">
+      Three ways to install. Drop-in template, Pi-mono extension, or MCP server. Pick the one that
+      matches your workflow.
+    </p>
+  </div>
+</section>
+
+<!-- =================== Drop-in template ========== -->
+<section class="section">
+  <div class="container">
+    <div class="overline">01 · Drop-in template</div>
+    <h2>Copy one folder into any repository.</h2>
+    <p class="section-sub">
+      No CLI, no runtime, no dependencies. The core is structured Markdown and YAML. Works with any
+      LLM that can read and write files.
+    </p>
+
+    <div class="card-elevated" style="margin-bottom:21px" data-reveal>
+      <div class="overline">Step 1: Copy the template</div>
+      <pre class="code-block">cp -r /path/to/CodeCartographer/.codecarto /path/to/your-repo/</pre>
+      <button class="copy-button" type="button" data-copy="cp -r /path/to/CodeCartographer/.codecarto /path/to/your-repo/" style="margin-top:12px">Copy command</button>
+    </div>
+
+    <div class="card-elevated" style="margin-bottom:21px" data-reveal>
+      <div class="overline">Step 2: Pick a pipeline (optional)</div>
+      <p style="margin-bottom:14px;color:var(--color-muted)">Edit <code>.codecarto/workflow/status.yaml</code> and set the pipeline field. Defaults to the 7-phase full analysis with a split defect scan.</p>
+      <pre class="code-block"><span class="com"># Available pipeline paths:</span>
+pipeline: workflow/pipeline-full-with-deep-audit.yaml  <span class="com"># 7-phase (default)</span>
+pipeline: workflow/pipeline-full-with-audit.yaml       <span class="com"># 6-phase</span>
+pipeline: workflow/pipeline.yaml                       <span class="com"># 5-phase</span>
+pipeline: workflow/pipeline-defect-scan.yaml           <span class="com"># 2-phase</span>
+pipeline: workflow/pipeline-lite.yaml                  <span class="com"># 3-phase</span>
+pipeline: workflow/pipeline-architecture-only.yaml     <span class="com"># 1-phase</span></pre>
+    </div>
+
+    <div class="card-elevated" data-reveal>
+      <div class="overline">Step 3: Point an LLM at the guide</div>
+      <pre class="code-block">Read .codecarto/GUIDE.md and begin the analysis.</pre>
+      <button class="copy-button" type="button" data-copy="Read .codecarto/GUIDE.md and begin the analysis." style="margin-top:12px">Copy prompt</button>
+      <p style="margin-top:14px;color:var(--color-muted)">The LLM reads the guide, checks <code>status.yaml</code> for progress, and starts the next phase automatically. Each phase produces a validated output in <code>.codecarto/findings/</code>.</p>
+    </div>
+
+    <div class="compatibility-band" style="margin-top:28px" data-reveal>
+      <p style="margin:0">Works in Claude Code, OpenCode, Cursor, Windsurf, Aider, and any IDE copilot with file read/write access.</p>
+    </div>
+  </div>
+</section>
+
+<!-- =================== Pi-mono extension ========= -->
+<section class="section-dark">
+  <div class="container">
+    <div class="overline">02 · Pi-mono extension</div>
+    <h2>Slash commands, widgets, and tool gating.</h2>
+    <p class="section-sub">
+      Install the package directly into Pi-mono. Phase sub-agents run in parallel widgets with live
+      token tracking and file-backed session transcripts.
+    </p>
+
+    <div class="card-elevated" style="background:rgba(245,239,216,0.06);border:1px solid rgba(245,239,216,0.14);box-shadow:none;margin-bottom:24px" data-reveal>
+      <div class="overline">Install</div>
+      <pre class="code-block">pi install npm:codecartographer-pi
+<span class="com"># or, from a local checkout:</span>
+pi install /absolute/path/to/CodeCartographer
+<span class="com"># or, from a git URL:</span>
+pi install git:github.com/your-user/CodeCartographer</pre>
+      <button class="copy-button" type="button" data-copy="pi install npm:codecartographer-pi" style="margin-top:12px">Copy npm install</button>
+    </div>
+
+    <div class="card-elevated" style="background:rgba(245,239,216,0.06);border:1px solid rgba(245,239,216,0.14);box-shadow:none" data-reveal>
+      <div class="overline">Available commands</div>
+      <div class="grid-2" style="margin-top:12px">
+        <div>
+          <p style="color:var(--color-surface);font-weight:500;margin-bottom:4px"><code>/codecarto-init</code></p>
+          <p>Copy <code>.codecarto/</code> into the current repository and select a pipeline.</p>
+        </div>
+        <div>
+          <p style="color:var(--color-surface);font-weight:500;margin-bottom:4px"><code>/codecarto-next</code></p>
+          <p>Spawn the next eligible phase as a sub-agent. Optional <code>--llm-steer</code> flag for customized seed prompts.</p>
+        </div>
+        <div>
+          <p style="color:var(--color-surface);font-weight:500;margin-bottom:4px"><code>/codecarto-status</code></p>
+          <p>Show current phase progress and pipeline state.</p>
+        </div>
+        <div>
+          <p style="color:var(--color-surface);font-weight:500;margin-bottom:4px"><code>/codecarto-validate</code></p>
+          <p>Run validation against the current phase output.</p>
+        </div>
+        <div>
+          <p style="color:var(--color-surface);font-weight:500;margin-bottom:4px"><code>/codecarto-complete</code></p>
+          <p>Atomically mark a phase complete after validation passes.</p>
+        </div>
+        <div>
+          <p style="color:var(--color-surface);font-weight:500;margin-bottom:4px"><code>/codecarto-phase</code></p>
+          <p>Force a specific phase even out of pipeline order.</p>
+        </div>
+        <div>
+          <p style="color:var(--color-surface);font-weight:500;margin-bottom:4px"><code>/codecarto-skill</code></p>
+          <p>Run a post-pipeline skill once all phases are complete.</p>
+        </div>
+        <div>
+          <p style="color:var(--color-surface);font-weight:500;margin-bottom:4px"><code>/codecarto-usage</code></p>
+          <p>Show cumulative and per-phase token usage from local phase runs.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =================== MCP server ================ -->
+<section class="section">
+  <div class="container">
+    <div class="overline">03 · MCP server</div>
+    <h2>Seven tools for any MCP-compatible host.</h2>
+    <p class="section-sub">
+      The same core primitives exposed as a Model Context Protocol server. Wire it into Claude Code,
+      Claude Desktop, or any MCP host.
+    </p>
+
+    <div class="card-elevated" style="margin-bottom:24px" data-reveal>
+      <div class="overline">Install</div>
+      <pre class="code-block">npm install --global codecartographer-pi
+<span class="com"># or, in a project:</span>
+npm install codecartographer-pi</pre>
+      <button class="copy-button" type="button" data-copy="npm install --global codecartographer-pi" style="margin-top:12px">Copy global install</button>
+    </div>
+
+    <div class="card-elevated" data-reveal>
+      <div class="overline">Host configuration</div>
+      <p style="margin-bottom:12px;color:var(--color-muted)">Add to your MCP host config. Claude Code uses <code>~/.config/claude-code/config.json</code>; Claude Desktop uses <code>claude_desktop_config.json</code>.</p>
+      <pre class="code-block">{
+  "mcpServers": {
+    "codecartographer": {
+      "command": "codecarto-mcp"
+    }
+  }
+}</pre>
+      <button class="copy-button" type="button" data-copy='{
+  "mcpServers": {
+    "codecartographer": {
+      "command": "codecarto-mcp"
+    }
+  }
+}' style="margin-top:12px">Copy config</button>
+    </div>
+
+    <p style="margin-top:28px;font-size:15px;color:var(--color-muted)" data-reveal>
+      The server exposes seven tools mirroring the Pi commands: <code>codecarto_init</code>,
+      <code>codecarto_status</code>, <code>codecarto_next</code>, <code>codecarto_phase</code>,
+      <code>codecarto_validate</code>, <code>codecarto_complete</code>, and
+      <code>codecarto_skill</code>. Each accepts an absolute <code>cwd</code> for the target
+      repository.
+    </p>
+  </div>
+</section>
+
+<!-- =================== Deploy to cPanel ========== -->
+<section class="section-dark">
+  <div class="container">
+    <div class="overline">04 · Deploy to Namecheap cPanel</div>
+    <h2>Upload the static bundle and point the domain at it.</h2>
+    <p class="section-sub">
+      This site is plain HTML, CSS, and JavaScript. Drop it into <code>public_html</code> on your
+      cPanel host and it is live.
+    </p>
+
+    <div class="split">
+      <div class="deploy-steps" data-reveal>
+        <ol>
+          <li>Open Namecheap cPanel and navigate to <strong>File Manager</strong>.</li>
+          <li>Open the document root for <code>codecarto.dev</code>. For a primary domain this is <code>public_html/</code>. For an addon domain it is the folder assigned as that domain's document root.</li>
+          <li>Upload the entire contents of this <code>website/</code> folder into that document root.</li>
+          <li>Confirm <code>index.html</code> sits at the top of the document root.</li>
+          <li>Enable <strong>AutoSSL</strong> for the domain in cPanel.</li>
+          <li>Force HTTPS with the included <code>.htaccess</code> file or the cPanel domain settings.</li>
+          <li>Visit <code>https://codecarto.dev/</code> and hard refresh.</li>
+        </ol>
+      </div>
+      <div class="card-elevated" style="background:rgba(245,239,216,0.06);border:1px solid rgba(245,239,216,0.14);box-shadow:none" data-reveal>
+        <div class="overline">Files to upload</div>
+        <ul style="list-style:none;padding:0;display:grid;gap:6px;font-family:var(--font-mono);font-size:13px;color:rgba(245,239,216,0.8);margin:0">
+          <li>index.html</li>
+          <li>features.html</li>
+          <li>docs.html</li>
+          <li>showcase.html</li>
+          <li>site.css</li>
+          <li>colors_and_type.css</li>
+          <li>script.js</li>
+          <li>.htaccess</li>
+          <li>robots.txt</li>
+          <li>sitemap.xml</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =================== Token usage =============== -->
+<section class="section">
+  <div class="container">
+    <div class="overline">05 · Token usage and cost</div>
+    <h2>What to expect on your first run.</h2>
+    <p class="section-sub">
+      CodeCartographer reads your source code multiple times across phases and produces thousands of
+      words of structured output. The fixed template overhead is about 27,000 tokens across a
+      6-phase run. Source code reading is the dominant variable cost.
+    </p>
+
+    <div class="grid-2">
+      <div class="card" data-reveal>
+        <h3 style="font-size:18px">Medium codebase (~100k tokens)</h3>
+        <p>A full 5-phase run costs roughly $2 to $4 in API fees. Larger codebases scale linearly. Start with architecture-only to test output quality before committing.</p>
+      </div>
+      <div class="card" data-reveal>
+        <h3 style="font-size:18px">Tips to reduce cost</h3>
+        <p>Use one session per phase for fresh context windows. The lite pipeline gives 80% of the value for understanding. Skip the defect scan on weaker models.</p>
+      </div>
+    </div>
+
+    <div class="hero-actions" style="margin-top:24px">
+      <a href="https://github.com/HuginnIndustries/CodeCartographer/blob/main/README.md#token-usage-and-cost" class="btn btn-primary">Full cost breakdown</a>
+    </div>
+  </div>
+</section>
+
+<!-- =================== Footer ==================== -->
+<footer class="site-footer">
+  <div class="site-footer-inner">
+    <div>
+      <div style="display:flex;align-items:center;gap:10px;font-family:var(--font-serif);font-weight:500;font-size:18px;color:#f5efd8">
+        <span class="brand-mark" style="width:28px;height:28px;border-radius:8px;flex-shrink:0" aria-hidden="true"></span>
+        CodeCartographer
+      </div>
+      <p class="tagline">A structured reverse-engineering toolkit for unfamiliar codebases.</p>
+    </div>
+    <div>
+      <h4>Site</h4>
+      <a href="index.html">Overview</a>
+      <a href="features.html">Features</a>
+      <a href="docs.html">Docs</a>
+      <a href="showcase.html">Showcase</a>
+    </div>
+    <div>
+      <h4>Project</h4>
+      <a href="https://github.com/HuginnIndustries/CodeCartographer">GitHub</a>
+      <a href="https://github.com/HuginnIndustries/CodeCartographer/blob/main/CHANGELOG.md">Changelog</a>
+      <a href="https://github.com/HuginnIndustries/CodeCartographer/blob/main/LICENSE">License</a>
+      <a href="https://github.com/HuginnIndustries/CodeCartographer/archive/refs/heads/main.zip">Download ZIP</a>
+    </div>
+    <div>
+      <h4>Guides</h4>
+      <a href="https://github.com/HuginnIndustries/CodeCartographer/blob/main/GUIDE.md">Usage guide</a>
+      <a href="https://github.com/HuginnIndustries/CodeCartographer/blob/main/MANUAL.md">Manual</a>
+      <a href="https://github.com/HuginnIndustries/CodeCartographer/blob/main/CONTRIBUTING.md">Contributing</a>
+    </div>
+    <div>
+      <h4>Package</h4>
+      <a href="https://www.npmjs.com/package/codecartographer-pi">npm</a>
+    </div>
+  </div>
+  <div class="site-footer-bottom">
+    <span>v0.8.0 · MIT License</span>
+    <span>codecarto.dev</span>
+  </div>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,273 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Showcase — CodeCartographer</title>
+<meta name="description" content="Example outputs, use cases, model compatibility, and the defect scan pass breakdown.">
+<meta name="theme-color" content="#141413">
+<link rel="canonical" href="https://codecarto.dev/showcase.html">
+<link rel="stylesheet" href="site.css">
+<script defer src="script.js"></script>
+</head>
+<body>
+
+<header class="site-nav">
+  <div class="site-nav-inner">
+    <a href="index.html" class="brand">
+      <span class="brand-mark" aria-hidden="true"></span>
+      <span>CodeCartographer</span>
+    </a>
+    <nav>
+      <a href="index.html">Overview</a>
+      <a href="features.html">Features</a>
+      <a href="docs.html">Docs</a>
+      <a href="showcase.html" class="active">Showcase</a>
+    </nav>
+    <a href="https://github.com/HuginnIndustries/CodeCartographer" class="btn btn-secondary">View on GitHub</a>
+  </div>
+</header>
+
+<!-- =================== Page header =============== -->
+<section class="hero" style="padding:72px 0 48px">
+  <div class="container">
+    <div class="hero-eyebrow"><span class="dot"></span> Example outputs &amp; use cases</div>
+    <h1 style="font-size:clamp(36px, 4.5vw, 56px)">Showcase</h1>
+    <p class="hero-sub">
+      See what the output artifacts look like, how the defect scan works, which models deliver the
+      best results, and what kind of codebases benefit most.
+    </p>
+  </div>
+</section>
+
+<!-- =================== Example outputs =========== -->
+<section class="section">
+  <div class="container">
+    <div class="overline">01 · Example outputs</div>
+    <h2>What a completed analysis bundle contains.</h2>
+    <p class="section-sub">
+      These are real output sizes from a 6-phase run analyzing CodeCartographer itself. A small
+      codebase produced over 21,000 tokens of structured findings.
+    </p>
+
+    <div class="grid-2">
+      <div class="card-elevated" data-reveal>
+        <span class="pill pill-ochre" style="margin-bottom:12px;display:inline-block">~3,100 tokens</span>
+        <h3>Architecture map</h3>
+        <p>System structure with 5 layers, 12 public surfaces catalogued, dependency direction analysis, runtime lifecycle documentation, and concurrency model notes. Each architectural claim tagged with its evidence level.</p>
+      </div>
+      <div class="card-elevated" data-reveal>
+        <span class="pill pill-slate" style="margin-bottom:12px;display:inline-block">~2,400 tokens</span>
+        <h3>Defect report</h3>
+        <p>Six-pass scan finding 18 defects: 1 critical, 3 high severity, 8 medium, 6 low. Each defect includes file location, reproduction steps, recommended action, and evidence classification.</p>
+      </div>
+      <div class="card-elevated" data-reveal>
+        <span class="pill pill-teal" style="margin-bottom:12px;display:inline-block">~4,500 tokens</span>
+        <h3>Behavioral contracts</h3>
+        <p>Feature-by-feature behavior with defaults, error handling, and acceptance tests. Nine feature areas catalogued with explicit black-box acceptance scenarios.</p>
+      </div>
+      <div class="card-elevated" data-reveal>
+        <span class="pill pill-plum" style="margin-bottom:12px;display:inline-block">~3,900 tokens</span>
+        <h3>Protocols and state</h3>
+        <p>Event flows, state machines, persistence formats. Two state machines documented, five event protocols traced, persistence layer compatibility hazards flagged.</p>
+      </div>
+      <div class="card-elevated" data-reveal>
+        <span class="pill pill-olive" style="margin-bottom:12px;display:inline-block">~3,400 tokens</span>
+        <h3>Porting bundle</h3>
+        <p>Synthesis layer ranking what matters and what is risky. Priority-ranked module list with rationale, portability hazard inventory, and dependency graph for rewrite sequencing.</p>
+      </div>
+      <div class="card-elevated" data-reveal>
+        <span class="pill pill-sand" style="margin-bottom:12px;display:inline-block">~4,400 tokens</span>
+        <h3>Reimplementation spec</h3>
+        <p>Language-agnostic build plan with 8 modules, acceptance scenarios per module, and a known-unknowns section for what could not be determined from available sources.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =================== Defect scan passes ======== -->
+<section class="section-dark">
+  <div class="container">
+    <div class="overline">02 · Defect scan passes</div>
+    <h2>Six specialized analysis passes on every audit.</h2>
+    <p class="section-sub">
+      The defect scan is not one general-purpose review. It runs six sequential passes, each with
+      domain-specific instructions. Findings are triaged by severity and mapped to a recommended
+      action.
+    </p>
+
+    <div class="grid-3">
+      <div class="card" data-reveal>
+        <h3>Logic and correctness</h3>
+        <p>Off-by-one errors, null handling gaps, boundary condition violations, type coercion risks, control flow dead spots.</p>
+      </div>
+      <div class="card" data-reveal>
+        <h3>Error handling</h3>
+        <p>Swallowed exceptions, missing fallback paths, error propagation gaps, inconsistent error taxonomy, silent failure modes.</p>
+      </div>
+      <div class="card" data-reveal>
+        <h3>Concurrency</h3>
+        <p>Race conditions, deadlock risks, missing synchronization, shared state without guards, async ordering assumptions.</p>
+      </div>
+      <div class="card" data-reveal>
+        <h3>Security</h3>
+        <p>Injection surfaces, missing input validation, hardcoded secrets, auth bypass risks, dependency vulnerability exposure.</p>
+      </div>
+      <div class="card" data-reveal>
+        <h3>API contract violations</h3>
+        <p>Parameter mismatches, return type drift, undocumented side effects, versioning hazards, broken backward compatibility.</p>
+      </div>
+      <div class="card" data-reveal>
+        <h3>Configuration hazards</h3>
+        <p>Hardcoded paths, missing env validation, unsafe defaults, environment drift between dev and production, secret rotation gaps.</p>
+      </div>
+    </div>
+
+    <div class="card-elevated" style="margin-top:24px;background:rgba(245,239,216,0.06);border:1px solid rgba(245,239,216,0.14);box-shadow:none" data-reveal>
+      <div class="overline">Severity and action mapping</div>
+      <p style="color:rgba(245,239,216,0.85);font-size:15px;line-height:1.6;margin:0">
+        Every finding gets a severity (<strong>critical</strong>, <strong>high</strong>,
+        <strong>medium</strong>, <strong>low</strong>) and a recommended action:
+        <strong>fix before porting</strong>, <strong>port differently</strong>, or
+        <strong>leave behind</strong>. The deep audit variant adds a second semantic pass with full
+        contracts and protocols context, catching issues the mechanical scan misses.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- =================== Model compatibility ======= -->
+<section class="section">
+  <div class="container">
+    <div class="overline">03 · Model compatibility</div>
+    <h2>Which models produce the best results.</h2>
+    <p class="section-sub">
+      CodeCartographer is LLM-agnostic by design, but model choice affects what you can analyze and
+      how good the results are.
+    </p>
+
+    <div class="grid-3" data-reveal>
+      <div class="card-elevated">
+        <span class="pill pill-ochre" style="margin-bottom:12px;display:inline-block">Frontier</span>
+        <h3>High-reasoning frontier models</h3>
+        <p>Best for full-with-deep-audit on larger codebases. The semantic defect pass benefits most from strong reasoning, long context, and reliable tool use.</p>
+      </div>
+      <div class="card-elevated">
+        <span class="pill pill-teal" style="margin-bottom:12px;display:inline-block">Strong mid-tier</span>
+        <h3>Balanced cost/quality models</h3>
+        <p>Good for architecture, contracts, and protocols. Recommended starting point: lite pipeline, then escalate only if the output is grounded and specific.</p>
+      </div>
+      <div class="card-elevated">
+        <span class="pill pill-slate" style="margin-bottom:12px;display:inline-block">Smaller</span>
+        <h3>Fast or budget models</h3>
+        <p>Use for quick structural orientation. Multi-phase pipelines can drift; prefer architecture-only unless you can manually review each phase.</p>
+      </div>
+    </div>
+
+    <div class="card-elevated" style="margin-top:24px;background:var(--color-surface-alt)" data-reveal>
+      <div class="overline" style="margin-bottom:6px">Testing a new model</div>
+      <p style="color:var(--color-text);font-size:16px;line-height:1.55;margin:0">
+        Start with <code>pipeline-architecture-only.yaml</code> on a codebase you already
+        understand. Compare the output against your own knowledge. That gives you a fast signal on
+        whether to trust the model with deeper phases.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- =================== Use cases ================= -->
+<section class="section-dark">
+  <div class="container">
+    <div class="overline">04 · Use cases</div>
+    <h2>When CodeCartographer earns its keep.</h2>
+    <p class="section-sub">
+      Different pipelines serve different goals. Here is when each one makes sense.
+    </p>
+
+    <div class="grid-2">
+      <div class="card" data-reveal>
+        <h3>Inherited a codebase with no docs</h3>
+        <p>Run the full pipeline. Start with architecture to get your bearings. Continue through contracts and protocols to recover the behavior. End with porting and reimplementation specs if a rewrite is on the table.</p>
+      </div>
+      <div class="card" data-reveal>
+        <h3>Planning a rewrite or port</h3>
+        <p>Full with deep audit. The split defect scan means the reimplementation spec is designed around defects that were found with full contracts and protocols context. You get a build plan that accounts for the real state of the code.</p>
+      </div>
+      <div class="card" data-reveal>
+        <h3>Maintenance audit before handoff</h3>
+        <p>Defect scan pipeline. Two phases: architecture plus six-pass audit. You get a triaged defect report with severity and actions. Nothing more.</p>
+      </div>
+      <div class="card" data-reveal>
+        <h3>Quick orientation on a library</h3>
+        <p>Architecture only. One phase. System layers, public API surfaces, dependency direction, runtime notes. Low cost, fast signal.</p>
+      </div>
+      <div class="card" data-reveal>
+        <h3>Understanding behavior without a rewrite</h3>
+        <p>Lite pipeline. Architecture, contracts, protocols. The fastest path to knowing how a system works and what it promises, without the porting bundle overhead.</p>
+      </div>
+      <div class="card" data-reveal>
+        <h3>Repeated analysis across a monorepo</h3>
+        <p>Drop <code>.codecarto/</code> into each package. Run architecture-only on packages you are curious about. Run full on packages you are targeting for changes. The status file keeps each analysis independent.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =================== CTA ======================= -->
+<section class="section">
+  <div class="container-narrow" style="text-align:center">
+    <h2 style="margin:0 auto 18px;text-align:center">Try it on your own codebase.</h2>
+    <p class="section-sub" style="margin:0 auto 32px;text-align:center">
+      Download the repository, drop <code>.codecarto/</code> into your project, and point an LLM at
+      the guide.
+    </p>
+    <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+      <a href="docs.html" class="btn btn-primary">Read the installation docs</a>
+      <a href="https://github.com/HuginnIndustries/CodeCartographer/archive/refs/heads/main.zip" class="btn btn-secondary">Download ZIP</a>
+    </div>
+  </div>
+</section>
+
+<!-- =================== Footer ==================== -->
+<footer class="site-footer">
+  <div class="site-footer-inner">
+    <div>
+      <div style="display:flex;align-items:center;gap:10px;font-family:var(--font-serif);font-weight:500;font-size:18px;color:#f5efd8">
+        <span class="brand-mark" style="width:28px;height:28px;border-radius:8px;flex-shrink:0" aria-hidden="true"></span>
+        CodeCartographer
+      </div>
+      <p class="tagline">A structured reverse-engineering toolkit for unfamiliar codebases.</p>
+    </div>
+    <div>
+      <h4>Site</h4>
+      <a href="index.html">Overview</a>
+      <a href="features.html">Features</a>
+      <a href="docs.html">Docs</a>
+      <a href="showcase.html">Showcase</a>
+    </div>
+    <div>
+      <h4>Project</h4>
+      <a href="https://github.com/HuginnIndustries/CodeCartographer">GitHub</a>
+      <a href="https://github.com/HuginnIndustries/CodeCartographer/blob/main/CHANGELOG.md">Changelog</a>
+      <a href="https://github.com/HuginnIndustries/CodeCartographer/blob/main/LICENSE">License</a>
+      <a href="https://github.com/HuginnIndustries/CodeCartographer/archive/refs/heads/main.zip">Download ZIP</a>
+    </div>
+    <div>
+      <h4>Guides</h4>
+      <a href="https://github.com/HuginnIndustries/CodeCartographer/blob/main/GUIDE.md">Usage guide</a>
+      <a href="https://github.com/HuginnIndustries/CodeCartographer/blob/main/MANUAL.md">Manual</a>
+      <a href="https://github.com/HuginnIndustries/CodeCartographer/blob/main/CONTRIBUTING.md">Contributing</a>
+    </div>
+    <div>
+      <h4>Package</h4>
+      <a href="https://www.npmjs.com/package/codecartographer-pi">npm</a>
+    </div>
+  </div>
+  <div class="site-footer-bottom">
+    <span>v0.8.0 · MIT License</span>
+    <span>codecarto.dev</span>
+  </div>
+</footer>
+
+</body>
+</html>

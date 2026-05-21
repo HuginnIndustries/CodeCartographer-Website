@@ -1,0 +1,295 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Features — CodeCartographer</title>
+<meta name="description" content="A tour of CodeCartographer: pipeline variants, evidence classification, phase-gating, cross-session continuity, and output artifacts.">
+<meta name="theme-color" content="#141413">
+<link rel="canonical" href="https://codecarto.dev/features.html">
+<link rel="stylesheet" href="site.css">
+<script defer src="script.js"></script>
+</head>
+<body>
+
+<header class="site-nav">
+  <div class="site-nav-inner">
+    <a href="index.html" class="brand">
+      <span class="brand-mark" aria-hidden="true"></span>
+      <span>CodeCartographer</span>
+    </a>
+    <nav>
+      <a href="index.html">Overview</a>
+      <a href="features.html" class="active">Features</a>
+      <a href="docs.html">Docs</a>
+      <a href="showcase.html">Showcase</a>
+    </nav>
+    <a href="https://github.com/HuginnIndustries/CodeCartographer" class="btn btn-secondary">View on GitHub</a>
+  </div>
+</header>
+
+<!-- =================== Page header =============== -->
+<section class="hero" style="padding:72px 0 48px">
+  <div class="container">
+    <div class="hero-eyebrow"><span class="dot"></span> The system in detail</div>
+    <h1 style="font-size:clamp(36px, 4.5vw, 56px)">Features</h1>
+    <p class="hero-sub">
+      A tour of every piece: pipeline variants, evidence classification, phase-gating, cross-session
+      continuity, and the output artifacts you end up with.
+    </p>
+  </div>
+</section>
+
+<!-- =================== Pipelines ================= -->
+<section class="section">
+  <div class="container">
+    <div class="overline">01 · Pipeline variants</div>
+    <h2>Six pipelines. Pick the depth that matches the job.</h2>
+    <p class="section-sub">
+      Every pipeline starts with architecture. From there, you choose how far to go. The default is
+      a 7-phase full analysis with a split defect scan. Scale back when you only need orientation.
+    </p>
+
+    <div class="pipeline-panel" data-reveal>
+      <div class="pipeline-switcher" role="tablist" aria-label="Pipeline variants">
+        <button class="pipeline-tab is-active" type="button" role="tab" data-pipeline="full-with-deep-audit">Full with deep audit</button>
+        <button class="pipeline-tab" type="button" role="tab" data-pipeline="full-with-audit">Full with audit</button>
+        <button class="pipeline-tab" type="button" role="tab" data-pipeline="full">Full</button>
+        <button class="pipeline-tab" type="button" role="tab" data-pipeline="defect-scan">Defect scan</button>
+        <button class="pipeline-tab" type="button" role="tab" data-pipeline="lite">Lite</button>
+        <button class="pipeline-tab" type="button" role="tab" data-pipeline="architecture-only">Architecture only</button>
+      </div>
+
+      <div class="pipeline-detail" aria-live="polite">
+        <p class="pipeline-kicker" id="pipeline-kicker">7 phases</p>
+        <h3 id="pipeline-title">Full with deep audit</h3>
+        <p id="pipeline-description">
+          Complete analysis with a two-pass defect scan. An early mechanical sweep catches
+          surface-level issues; a later semantic pass re-examines defects with full contracts
+          and protocols context before reimplementation planning.
+        </p>
+        <ol class="phase-list" id="pipeline-phases">
+          <li>Architecture</li>
+          <li>Defect scan (mechanical)</li>
+          <li>Contracts</li>
+          <li>Protocols</li>
+          <li>Defect scan (semantic)</li>
+          <li>Porting</li>
+          <li>Reimplementation spec</li>
+        </ol>
+        <p class="pipeline-note" id="pipeline-note">
+          The default pipeline. Best when you need the deepest defect analysis grounded in full
+          behavioral understanding.
+        </p>
+      </div>
+    </div>
+
+    <div class="compatibility-band" style="margin-top:32px" data-reveal>
+      <p style="margin:0">Phases form a DAG. Contracts and protocols can run in parallel after architecture. Porting waits for both. Reimplementation spec is last.</p>
+    </div>
+  </div>
+</section>
+
+<!-- =================== Evidence classification === -->
+<section class="section">
+  <div class="container">
+    <div class="overline">02 · Evidence classification</div>
+    <h2>Every finding tagged with a confidence level.</h2>
+    <p class="section-sub">
+      An LLM can sound certain about things it inferred. CodeCartographer requires every finding to
+      carry an evidence tag so you know what was observed, what was deduced, and what remains an
+      open question.
+    </p>
+
+    <div class="evidence-grid" data-reveal>
+      <div class="evidence-badge">
+        <div class="icon">🔍</div>
+        <h4>Observed fact</h4>
+        <p>Directly visible in source code or documentation. Not inferred.</p>
+      </div>
+      <div class="evidence-badge">
+        <div class="icon">🧠</div>
+        <h4>Strong inference</h4>
+        <p>Deduced from patterns and structure. High confidence but not directly stated.</p>
+      </div>
+      <div class="evidence-badge">
+        <div class="icon">⚠️</div>
+        <h4>Portability hazard</h4>
+        <p>Behavior or assumption that may not survive a rewrite or language change.</p>
+      </div>
+      <div class="evidence-badge">
+        <div class="icon">❓</div>
+        <h4>Open question</h4>
+        <p>Could not determine from available sources. Needs human input or deeper analysis.</p>
+      </div>
+    </div>
+
+    <div class="card-elevated" style="margin-top:28px;background:var(--color-surface-alt)" data-reveal>
+      <div class="overline" style="margin-bottom:6px">Discipline rule</div>
+      <p style="color:var(--color-text);font-size:16px;line-height:1.55;margin:0">
+        If an LLM cannot classify a finding with one of these four tags, the finding is not specific
+        enough to be useful. Vague assertions get rejected by the validation protocol.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- =================== Phase-gating ============== -->
+<section class="section">
+  <div class="container">
+    <div class="overline">03 · Phase-gating</div>
+    <h2>No phase advances until the current output validates.</h2>
+    <p class="section-sub">
+      Each phase produces a structured output against a template. The validation protocol checks
+      completion criteria: are all required sections present, are findings tagged with evidence
+      levels, are open questions logged in <code>status.yaml</code>.
+    </p>
+
+    <div class="grid-2">
+      <div class="card" data-reveal>
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">
+          <span class="pill pill-sand"><code style="background:none;padding:0">templates/</code></span>
+        </div>
+        <h3 style="font-size:18px">Output templates</h3>
+        <p>Structured Markdown templates enforce consistent sections across projects and sessions. Every artifact has the same shape regardless of which LLM produced it.</p>
+      </div>
+      <div class="card" data-reveal>
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">
+          <span class="pill pill-sand"><code style="background:none;padding:0">VALIDATE.md</code></span>
+        </div>
+        <h3 style="font-size:18px">Validation protocol</h3>
+        <p>Run after every phase. Checks that outputs match templates, evidence tags are applied, and partial results are logged properly before allowing the status to advance.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =================== Cross-session continuity === -->
+<section class="section">
+  <div class="container">
+    <div class="overline">04 · Cross-session continuity</div>
+    <h2>A fresh LLM session picks up exactly where the last one stopped.</h2>
+    <p class="section-sub">
+      Large codebases need multiple sessions. <code>status.yaml</code> is the single source of
+      truth. A new session reads the guide, checks the status file, sees what is complete, and
+      starts the next phase automatically. No explaining what happened before.
+    </p>
+
+    <div class="grid-2">
+      <div class="card" data-reveal>
+        <h3 style="font-size:18px"><code>status.yaml</code></h3>
+        <p>Mutable per-project state. Tracks phase completion, current phase, open questions, and the active pipeline. The only file that changes during a run.</p>
+      </div>
+      <div class="card" data-reveal>
+        <h3 style="font-size:18px"><code>THREAD_LOG.md</code></h3>
+        <p>Cross-session summary log. Each session appends what it completed and what needs attention, giving the next session context beyond the machine-readable status file.</p>
+      </div>
+    </div>
+
+    <div class="card-elevated" style="margin-top:24px;background:var(--color-surface-alt)" data-reveal>
+      <div class="overline" style="margin-bottom:6px">Pi-mono bonus</div>
+      <p style="color:var(--color-text);font-size:16px;line-height:1.55;margin:0">
+        In Pi-mono, phase sub-agents persist transcripts alongside the orchestrator session.
+        <code>/resume</code>, <code>/tree</code>, and <code>/export</code> browse them as
+        first-class sessions with lineage back to the orchestrator.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- =================== Output artifacts ========== -->
+<section class="section-dark">
+  <div class="container">
+    <div class="overline">05 · Output artifacts</div>
+    <h2>The bundle you end up with.</h2>
+    <p class="section-sub">
+      Each artifact targets a different audience: engineers, reviewers, maintainers, and the next
+      LLM session.
+    </p>
+
+    <div class="artifact-grid" style="margin-top:8px">
+      <div class="artifact" data-reveal>
+        <h3>Architecture map</h3>
+        <p>Layers, public surfaces, runtime lifecycle, dependency direction, porting priorities.</p>
+      </div>
+      <div class="artifact" data-reveal>
+        <h3>Defect report</h3>
+        <p>Multi-pass scan: logic, error handling, concurrency, security, API drift, config risks.</p>
+      </div>
+      <div class="artifact" data-reveal>
+        <h3>Behavioral contracts</h3>
+        <p>User-visible behavior, defaults, side effects, error modes, black-box acceptance checks.</p>
+      </div>
+      <div class="artifact" data-reveal>
+        <h3>Protocols and state</h3>
+        <p>Events, state machines, persistence notes, compatibility hazards, internal message flow.</p>
+      </div>
+      <div class="artifact" data-reveal>
+        <h3>Porting bundle</h3>
+        <p>Synthesis layer ranking what matters, what is risky, what needs special treatment in a rewrite.</p>
+      </div>
+      <div class="artifact" data-reveal>
+        <h3>Reimplementation spec</h3>
+        <p>Language-agnostic build plan with modules, acceptance scenarios, and known unknowns.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =================== CTA ======================= -->
+<section class="section">
+  <div class="container-narrow" style="text-align:center">
+    <h2 style="margin:0 auto 18px;text-align:center">Ready to try it on your own codebase?</h2>
+    <p class="section-sub" style="margin:0 auto 32px;text-align:center">
+      Read the installation docs for drop-in setup, Pi-mono commands, or MCP server configuration.
+    </p>
+    <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+      <a href="docs.html" class="btn btn-primary">Read the docs</a>
+      <a href="https://github.com/HuginnIndustries/CodeCartographer/archive/refs/heads/main.zip" class="btn btn-secondary">Download ZIP</a>
+    </div>
+  </div>
+</section>
+
+<!-- =================== Footer ==================== -->
+<footer class="site-footer">
+  <div class="site-footer-inner">
+    <div>
+      <div style="display:flex;align-items:center;gap:10px;font-family:var(--font-serif);font-weight:500;font-size:18px;color:#f5efd8">
+        <span class="brand-mark" style="width:28px;height:28px;border-radius:8px;flex-shrink:0" aria-hidden="true"></span>
+        CodeCartographer
+      </div>
+      <p class="tagline">A structured reverse-engineering toolkit for unfamiliar codebases.</p>
+    </div>
+    <div>
+      <h4>Site</h4>
+      <a href="index.html">Overview</a>
+      <a href="features.html">Features</a>
+      <a href="docs.html">Docs</a>
+      <a href="showcase.html">Showcase</a>
+    </div>
+    <div>
+      <h4>Project</h4>
+      <a href="https://github.com/HuginnIndustries/CodeCartographer">GitHub</a>
+      <a href="https://github.com/HuginnIndustries/CodeCartographer/blob/main/CHANGELOG.md">Changelog</a>
+      <a href="https://github.com/HuginnIndustries/CodeCartographer/blob/main/LICENSE">License</a>
+      <a href="https://github.com/HuginnIndustries/CodeCartographer/archive/refs/heads/main.zip">Download ZIP</a>
+    </div>
+    <div>
+      <h4>Guides</h4>
+      <a href="https://github.com/HuginnIndustries/CodeCartographer/blob/main/GUIDE.md">Usage guide</a>
+      <a href="https://github.com/HuginnIndustries/CodeCartographer/blob/main/MANUAL.md">Manual</a>
+      <a href="https://github.com/HuginnIndustries/CodeCartographer/blob/main/CONTRIBUTING.md">Contributing</a>
+    </div>
+    <div>
+      <h4>Package</h4>
+      <a href="https://www.npmjs.com/package/codecartographer-pi">npm</a>
+    </div>
+  </div>
+  <div class="site-footer-bottom">
+    <span>v0.8.0 · MIT License</span>
+    <span>codecarto.dev</span>
+  </div>
+</footer>
+
+</body>
+</html>

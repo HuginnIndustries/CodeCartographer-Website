@@ -1,0 +1,134 @@
+@import url('https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+:root {
+  --color-bg: #ede5cc;
+  --color-surface: #f5efd8;
+  --color-surface-soft: #faf6e6;
+  --color-surface-alt: #e0d5b8;
+  --color-surface-deep: #cfc2a3;
+  --color-surface-strong: #ffffff;
+  --color-border: #e3d9c0;
+  --color-border-strong: #d9ceb4;
+  --color-ring: #c9c0a5;
+  --color-text: #141413;
+  --color-text-soft: #4d4c48;
+  --color-muted: #5e5d59;
+  --color-subtle: #87867f;
+  --color-primary: #9e3728;
+  --color-primary-hover: #7e2c20;
+  --color-primary-soft: #b8432f;
+  --color-focus: #3898ec;
+  --color-sidebar: #3d3d3a;
+  --color-sidebar-active: #30302e;
+  --color-sidebar-strong: #141413;
+  --color-success-bg: #dce8d0;
+  --color-success-fg: #2d5e2e;
+  --color-warning-bg: #f0e5c0;
+  --color-warning-fg: #7a5f0f;
+  --color-danger-bg: #f0d5c8;
+  --color-danger-fg: #9e3728;
+  --color-error: #b53333;
+  --color-error-bg: #f5dcd0;
+  --color-accent-teal: #2c5862;
+  --color-accent-slate: #5a6b78;
+  --color-accent-ochre: #b8862b;
+  --color-accent-olive: #6b7242;
+  --color-accent-plum: #6b3f4f;
+  --font-serif: 'Lora', Georgia, serif;
+  --font-sans: 'Inter', system-ui, Arial, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Courier New', monospace;
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --shadow-ring: 0 0 0 1px var(--color-ring);
+  --shadow-soft: rgba(0, 0, 0, 0.05) 0 4px 24px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+}
+
+body {
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+.h1,
+.h2,
+.h3 {
+  color: var(--color-text);
+  font-family: var(--font-serif);
+  font-weight: 500;
+  letter-spacing: 0;
+  margin: 0;
+}
+
+.h1 {
+  font-size: 40px;
+  line-height: 1.15;
+}
+
+.h2 {
+  font-size: 32px;
+  line-height: 1.2;
+}
+
+.h3 {
+  font-size: 24px;
+  line-height: 1.25;
+}
+
+.body {
+  color: var(--color-muted);
+  font-family: var(--font-sans);
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+.caption {
+  color: var(--color-subtle);
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+.overline {
+  color: var(--color-subtle);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.mono {
+  font-family: var(--font-mono);
+}
+
+.card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-6);
+}

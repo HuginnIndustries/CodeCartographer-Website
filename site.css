@@ -665,6 +665,14 @@ pre.code-block {
   line-height: 1.6;
 }
 
+.section-dark .artifact h3 {
+  color: var(--color-surface);
+}
+
+.section-dark .artifact p {
+  color: rgba(245, 239, 216, 0.72);
+}
+
 @media (max-width: 880px) {
   .artifact-grid {
     grid-template-columns: 1fr;

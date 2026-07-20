@@ -61,6 +61,14 @@ test("continuity copy treats THREAD_LOG as a closeout index, not the durable sum
   assert.doesNotMatch(card, /summary log/i);
 });
 
+test("Pi recovery copy names the authoritative non-destructive workspace command", async () => {
+  const extension = await read(join(UPSTREAM_ROOT, "extensions", "codecarto", "index.ts"));
+  assert.match(extension, /registerCommand\("codecarto-open"/);
+  const features = await read(join(SITE_ROOT, "features.html"));
+  assert.match(features, /<code>\/codecarto-open<\/code>/);
+  assert.match(features, /without resetting/i);
+});
+
 test("FAQ explains distillation, compaction limits, and delivery-surface responsibility", async () => {
   const features = await read(join(SITE_ROOT, "features.html"));
   assert.match(features, /Frequently asked questions/i);

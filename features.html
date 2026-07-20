@@ -205,7 +205,7 @@
     </div>
 
     <div class="compatibility-band" style="margin-top:28px" data-reveal>
-      <p style="margin:0"><strong>Practical result:</strong> compacting or replacing the orchestrator session does not erase pipeline progress. A new session reconstructs the relevant state from disk and continues.</p>
+      <p style="margin:0"><strong>Practical result:</strong> compacting or replacing the orchestrator session does not erase pipeline progress. The next host session can reopen the durable state and continue; Pi users run <code>/codecarto-open</code> to attach without resetting it.</p>
     </div>
   </div>
 </section>
@@ -217,8 +217,8 @@
     <h2>A fresh LLM session picks up exactly where the last one stopped.</h2>
     <p class="section-sub">
       Large codebases need multiple sessions. <code>status.yaml</code> is the single source of
-      truth. A new session reads the guide, checks the status file, sees what is complete, and
-      starts the next phase automatically. No explaining what happened before.
+      truth. After the host opens the workspace, the new session reads the guide, checks the status
+      file, sees what is complete, and starts the next eligible phase. No explaining what happened before.
     </p>
 
     <div class="grid-2">
@@ -235,7 +235,8 @@
     <div class="card-elevated" style="margin-top:24px;background:var(--color-surface-alt)" data-reveal>
       <div class="overline" style="margin-bottom:6px">Pi extension bonus</div>
       <p style="color:var(--color-text);font-size:16px;line-height:1.55;margin:0">
-        In the Pi extension, phase sub-agents persist transcripts alongside the orchestrator session.
+        In the Pi extension, <code>/codecarto-open</code> safely activates existing state in a fresh
+        orchestrator session. Phase sub-agents persist transcripts alongside that session.
         <code>/resume</code>, <code>/tree</code>, and <code>/export</code> browse them as
         first-class sessions with lineage back to the orchestrator.
       </p>

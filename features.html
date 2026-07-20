@@ -165,10 +165,55 @@
   </div>
 </section>
 
+<!-- =================== Progressive distillation == -->
+<section class="section">
+  <div class="container">
+    <div class="overline">04 · Progressive distillation</div>
+    <h2>The codebase gets smaller in context and richer in meaning.</h2>
+    <p class="section-sub">
+      CodeCartographer does not ask one context window to remember the entire investigation. Each
+      phase turns a large body of source evidence into a smaller, more task-specific artifact that
+      downstream phases can read and validate.
+    </p>
+
+    <div class="pipeline-panel" data-reveal>
+      <div class="pipeline-detail" style="grid-column:1 / -1">
+        <p class="pipeline-kicker">Evidence-tagged distillation</p>
+        <ol class="phase-list">
+          <li>Raw source → architecture map</li>
+          <li>Architecture + targeted source reads → contracts, protocols, and defect findings</li>
+          <li>Validated findings → porting bundle</li>
+          <li>Porting bundle + known unknowns → reimplementation spec</li>
+        </ol>
+        <p class="pipeline-note">
+          This is deliberate distillation, not incidental chat summarization. Templates, evidence
+          labels, open questions, and validation gates reduce the risk of an unsupported claim
+          becoming “fact” as information moves downstream.
+        </p>
+      </div>
+    </div>
+
+    <div class="grid-2" style="margin-top:24px">
+      <div class="card" data-reveal>
+        <h3 style="font-size:18px">Cross-phase context is durable</h3>
+        <p>Each phase gets a fresh context window and re-reads the upstream findings declared by the pipeline. Progress, open questions, carry-forward items, decisions, and closeouts live under <code>.codecarto/</code> rather than only in the conversation.</p>
+      </div>
+      <div class="card" data-reveal>
+        <h3 style="font-size:18px">Intra-phase limits stay visible</h3>
+        <p>Compaction inside one oversized phase can still be lossy. When full coverage will not fit, the phase records <code>PARTIAL</code> validation and routes unresolved work through <code>open_questions</code> or <code>carry_forward</code> instead of hiding the gap.</p>
+      </div>
+    </div>
+
+    <div class="compatibility-band" style="margin-top:28px" data-reveal>
+      <p style="margin:0"><strong>Practical result:</strong> compacting or replacing the orchestrator session does not erase pipeline progress. A new session reconstructs the relevant state from disk and continues.</p>
+    </div>
+  </div>
+</section>
+
 <!-- =================== Cross-session continuity === -->
 <section class="section">
   <div class="container">
-    <div class="overline">04 · Cross-session continuity</div>
+    <div class="overline">05 · Cross-session continuity</div>
     <h2>A fresh LLM session picks up exactly where the last one stopped.</h2>
     <p class="section-sub">
       Large codebases need multiple sessions. <code>status.yaml</code> is the single source of
@@ -179,7 +224,7 @@
     <div class="grid-2">
       <div class="card" data-reveal>
         <h3 style="font-size:18px"><code>status.yaml</code></h3>
-        <p>Mutable per-project state. Tracks phase completion, current phase, open questions, and the active pipeline. The only file that changes during a run.</p>
+        <p>Mutable per-project state. Tracks phase completion, current phase, open questions, carry-forward work, and the active pipeline.</p>
       </div>
       <div class="card" data-reveal>
         <h3 style="font-size:18px"><code>THREAD_LOG.md</code></h3>
@@ -201,7 +246,7 @@
 <!-- =================== Output artifacts ========== -->
 <section class="section-dark">
   <div class="container">
-    <div class="overline">05 · Output artifacts</div>
+    <div class="overline">06 · Output artifacts</div>
     <h2>The bundle you end up with.</h2>
     <p class="section-sub">
       Each artifact targets a different audience: engineers, reviewers, maintainers, and the next

@@ -1,0 +1,28 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  upstream-consistency:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out website
+        uses: actions/checkout@v4
+        with:
+          path: website
+      - name: Check out authoritative CodeCartographer source
+        uses: actions/checkout@v4
+        with:
+          repository: HuginnIndustries/CodeCartographer
+          path: CodeCartographer
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify website against upstream source
+        working-directory: website
+        env:
+          CODECARTO_UPSTREAM: ${{ github.workspace }}/CodeCartographer
+        run: npm test

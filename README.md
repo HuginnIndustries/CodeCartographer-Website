@@ -46,3 +46,17 @@ Color palette and typography follow the Hearth UI warm-neutral token system:
 - Type: Lora (display), Inter (body/UI), JetBrains Mono (code/identifiers)
 
 All tokens are defined in `colors_and_type.css`. Tune the palette there; the marketing site reads from the same file.
+
+## Verification
+
+The static site is checked against an authoritative CodeCartographer checkout so version labels, MCP tool documentation, pipeline variants, and continuity terminology cannot drift silently.
+
+```bash
+# With the CodeCartographer repository as a sibling directory:
+npm test
+
+# Or point at another checkout explicitly:
+CODECARTO_UPSTREAM=/absolute/path/to/CodeCartographer npm test
+```
+
+GitHub Actions checks out both repositories and runs the same source-boundary tests on every pull request and push to `main`.

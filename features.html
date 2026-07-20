@@ -182,8 +182,8 @@
         <ol class="phase-list">
           <li>Raw source → architecture map</li>
           <li>Architecture + targeted source reads → contracts, protocols, and defect findings</li>
-          <li>Validated findings → porting bundle</li>
-          <li>Porting bundle + known unknowns → reimplementation spec</li>
+          <li>Validated findings → self-contained porting bundle + source index</li>
+          <li>Porting bundle + targeted deep reads → reimplementation spec</li>
         </ol>
         <p class="pipeline-note">
           This is deliberate distillation, not incidental chat summarization. Templates, evidence
@@ -228,7 +228,7 @@
       </div>
       <div class="card" data-reveal>
         <h3 style="font-size:18px"><code>THREAD_LOG.md</code></h3>
-        <p>Cross-session summary log. Each session appends what it completed and what needs attention, giving the next session context beyond the machine-readable status file.</p>
+        <p>Append-only index pointing to per-session closeout files. Durable findings stay in phase outputs and closeouts; the log gives new sessions a compact route into that evidence without becoming a second summary store.</p>
       </div>
     </div>
 
@@ -243,10 +243,41 @@
   </div>
 </section>
 
+<!-- =================== FAQ ======================== -->
+<section class="section">
+  <div class="container">
+    <div class="overline">06 · Frequently asked questions</div>
+    <h2>Context, compaction, and delivery surfaces.</h2>
+
+    <div class="grid-2">
+      <div class="card" data-reveal>
+        <h3 style="font-size:18px">Is this repeatedly summarizing summaries?</h3>
+        <p>It is better described as progressive, evidence-tagged distillation. Each phase produces a purpose-built artifact with templates, evidence levels, known unknowns, and a validation gate before downstream phases use it.</p>
+      </div>
+      <div class="card" data-reveal>
+        <h3 style="font-size:18px">What happens when conversation context is compacted?</h3>
+        <p>Cross-phase state is reconstructed from files under <code>.codecarto/</code>, so compacting or replacing the orchestrator does not erase progress. Pi phase compaction now uses a phase-aware continuation summary, writes <code>scratch/checkpoints/&lt;phase&gt;.md</code>, and records compaction outcomes in local usage telemetry. The summary is still lossy, so material gaps remain explicit as <code>PARTIAL</code>, <code>open_questions</code>, or <code>carry_forward</code>.</p>
+      </div>
+      <div class="card" data-reveal>
+        <h3 style="font-size:18px">Who controls phase sessions?</h3>
+        <p>The Pi extension automatically runs phases in isolated, file-backed sessions and applies phase-aware compaction only to sessions named <code>CodeCartographer phase: &lt;id&gt;</code>. An MCP host controls its own LLM sessions and compaction, so it should dispatch one fresh session per phase. The MCP server itself does not run an agent.</p>
+      </div>
+      <div class="card" data-reveal>
+        <h3 style="font-size:18px">What about the drop-in template?</h3>
+        <p>Drop-in mode uses the same durable files and phase protocol, but isolation is procedural rather than enforced. Start each phase in a fresh session, read the declared upstream artifacts, and preserve unresolved work on disk.</p>
+      </div>
+      <div class="card" data-reveal>
+        <h3 style="font-size:18px">Does the final spec reload every prior report?</h3>
+        <p>No. The porting bundle is the final intentional compression boundary. Its source index carries load-bearing claims, defect dispositions, coverage gaps, and deep-read triggers. Final synthesis opens lower-level findings only for a named gap, conflict, missing acceptance detail, or defect rationale.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- =================== Output artifacts ========== -->
 <section class="section-dark">
   <div class="container">
-    <div class="overline">06 · Output artifacts</div>
+    <div class="overline">07 · Output artifacts</div>
     <h2>The bundle you end up with.</h2>
     <p class="section-sub">
       Each artifact targets a different audience: engineers, reviewers, maintainers, and the next
@@ -332,7 +363,7 @@
     </div>
   </div>
   <div class="site-footer-bottom">
-    <span>v0.8.0 · MIT License</span>
+    <span>v0.10.0 · MIT License</span>
     <span>codecarto.dev</span>
   </div>
 </footer>

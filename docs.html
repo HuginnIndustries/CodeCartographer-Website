@@ -146,10 +146,11 @@ pi install git:github.com/your-user/CodeCartographer</pre>
 <section class="section">
   <div class="container">
     <div class="overline">03 · MCP server</div>
-    <h2>Seven tools for any MCP-compatible host.</h2>
+    <h2>10 tools for any MCP-compatible host.</h2>
     <p class="section-sub">
       The same core primitives exposed as a Model Context Protocol server. Wire it into Claude Code,
-      Claude Desktop, or any MCP host.
+      Claude Desktop, or any MCP host. The host runs the LLM, isolates phase sessions, and controls
+      compaction; CodeCartographer returns prompts, validates outputs, and manages durable workflow state.
     </p>
 
     <div class="card-elevated" style="margin-bottom:24px" data-reveal>
@@ -180,11 +181,13 @@ npm install codecartographer-pi</pre>
     </div>
 
     <p style="margin-top:28px;font-size:15px;color:var(--color-muted)" data-reveal>
-      The server exposes seven tools mirroring the Pi commands: <code>codecarto_init</code>,
+      The server exposes 10 workflow and library tools: <code>codecarto_init</code>,
       <code>codecarto_status</code>, <code>codecarto_next</code>, <code>codecarto_phase</code>,
       <code>codecarto_validate</code>, <code>codecarto_complete</code>, and
-      <code>codecarto_skill</code>. Each accepts an absolute <code>cwd</code> for the target
-      repository.
+      <code>codecarto_skill</code>, plus <code>codecarto_publish</code>,
+      <code>codecarto_library_list</code>, and <code>codecarto_library_reindex</code>.
+      Workflow tools accept an absolute <code>cwd</code> for the target repository; library tools
+      accept a configured or explicit library path.
     </p>
   </div>
 </section>
@@ -294,7 +297,7 @@ npm install codecartographer-pi</pre>
     </div>
   </div>
   <div class="site-footer-bottom">
-    <span>v0.8.0 · MIT License</span>
+    <span>v0.10.0 · MIT License</span>
     <span>codecarto.dev</span>
   </div>
 </footer>

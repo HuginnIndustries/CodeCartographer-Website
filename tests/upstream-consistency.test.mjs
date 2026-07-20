@@ -23,7 +23,10 @@ test("every public version label matches the authoritative package version", asy
   const pkg = JSON.parse(await read(join(UPSTREAM_ROOT, "package.json")));
   for (const name of await htmlFiles()) {
     const html = await read(join(SITE_ROOT, name));
-    assert.doesNotMatch(html, /v0\.8\.0/, `${name} still contains the retired v0.8.0 label`);
+    const publicVersions = [...html.matchAll(/\bv(\d+\.\d+\.\d+)\b/g)].map((match) => match[1]);
+    for (const version of publicVersions) {
+      assert.equal(version, pkg.version, `${name} contains stale public version v${version}; expected v${pkg.version}`);
+    }
     const footer = html.match(/<div class="site-footer-bottom">([\s\S]*?)<\/div>/)?.[1] ?? "";
     assert.match(footer, new RegExp(`v${pkg.version.replaceAll(".", "\\.")}`), `${name} footer must show v${pkg.version}`);
   }

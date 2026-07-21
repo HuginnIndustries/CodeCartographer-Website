@@ -66,7 +66,8 @@ pipeline: workflow/pipeline-full-with-audit.yaml       <span class="com"># 6-pha
 pipeline: workflow/pipeline.yaml                       <span class="com"># 5-phase</span>
 pipeline: workflow/pipeline-defect-scan.yaml           <span class="com"># 2-phase</span>
 pipeline: workflow/pipeline-lite.yaml                  <span class="com"># 3-phase</span>
-pipeline: workflow/pipeline-architecture-only.yaml     <span class="com"># 1-phase</span></pre>
+pipeline: workflow/pipeline-architecture-only.yaml     <span class="com"># 1-phase</span>
+pipeline: workflow/pipeline-synthesis.yaml             <span class="com"># 4-phase forward synthesis (Pi/MCP only)</span></pre>
     </div>
 
     <div class="card-elevated" data-reveal>
@@ -98,7 +99,7 @@ pipeline: workflow/pipeline-architecture-only.yaml     <span class="com"># 1-pha
 <span class="com"># or, from a local checkout:</span>
 pi install /absolute/path/to/CodeCartographer
 <span class="com"># or, from a git URL:</span>
-pi install git:github.com/your-user/CodeCartographer</pre>
+pi install git:github.com/HuginnIndustries/CodeCartographer</pre>
       <button class="copy-button" type="button" data-copy="pi install npm:codecartographer-pi" style="margin-top:12px">Copy npm install</button>
     </div>
 
@@ -192,10 +193,45 @@ npm install codecartographer-pi</pre>
   </div>
 </section>
 
+<!-- =================== Forward synthesis ========= -->
+<section class="section-dark">
+  <div class="container">
+    <div class="overline">04 · Forward synthesis</div>
+    <h2>Turn confirmed software maps into a traceable build plan.</h2>
+    <p class="section-sub">
+      The synthesis pipeline runs through Pi or MCP. It combines a product vision with reusable,
+      versioned reimplementation specs, pauses for explicit human selection, preserves conflicts,
+      and produces work packages with a decision-level provenance ledger.
+    </p>
+
+    <div class="grid-2">
+      <div class="card-elevated" style="background:rgba(245,239,216,0.06);border:1px solid rgba(245,239,216,0.14);box-shadow:none" data-reveal>
+        <div class="overline">Start</div>
+        <pre class="code-block">/codecarto-init synthesis
+<span class="com"># Fill .codecarto/inputs/vision.md</span>
+/codecarto-next --auto</pre>
+        <p>The first run creates a ranked proposal, completes that phase, and then intentionally stops at the confirmation preflight.</p>
+      </div>
+      <div class="card-elevated" style="background:rgba(245,239,216,0.06);border:1px solid rgba(245,239,216,0.14);box-shadow:none" data-reveal>
+        <div class="overline">Confirm and resume</div>
+        <pre class="code-block"><span class="com"># In proposal.md:</span>
+| [x] | event-router | v2 | ... |
+
+/codecarto-next --auto</pre>
+        <p>Merge and finalization read only the checked, version-pinned specs. An unknown entry or version is rejected before any LLM phase starts.</p>
+      </div>
+    </div>
+
+    <div class="hero-actions" style="margin-top:24px">
+      <a href="https://github.com/HuginnIndustries/CodeCartographer/blob/main/docs/build-week-2026.md" class="btn btn-primary">Run the one-command demo</a>
+    </div>
+  </div>
+</section>
+
 <!-- =================== Deploy to cPanel ========== -->
 <section class="section-dark">
   <div class="container">
-    <div class="overline">04 · Deploy to Namecheap cPanel</div>
+    <div class="overline">05 · Deploy to Namecheap cPanel</div>
     <h2>Upload the static bundle and point the domain at it.</h2>
     <p class="section-sub">
       This site is plain HTML, CSS, and JavaScript. Drop it into <code>public_html</code> on your
@@ -236,7 +272,7 @@ npm install codecartographer-pi</pre>
 <!-- =================== Token usage =============== -->
 <section class="section">
   <div class="container">
-    <div class="overline">05 · Token usage and cost</div>
+    <div class="overline">06 · Token usage and cost</div>
     <h2>What to expect on your first run.</h2>
     <p class="section-sub">
       CodeCartographer reads your source code multiple times across phases and produces thousands of

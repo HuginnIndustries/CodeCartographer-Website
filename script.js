@@ -64,6 +64,14 @@ const pipelineData = {
     phases: ["Architecture"],
     note: "Ideal as a low-cost first pass when you only need to orient yourself.",
   },
+  synthesis: {
+    kicker: "4 phases · forward flow",
+    title: "Synthesis",
+    description:
+      "Combines a product vision with explicitly confirmed, versioned library specifications to create an implementation-ready plan without losing provenance.",
+    phases: ["Vision capture", "Candidate proposal + human confirmation", "Specification merge", "Project plan"],
+    note: "Pi/MCP only. Runtime preflight refuses to merge or finalize until a human confirms at least one version-pinned input.",
+  },
 };
 
 function initPipelineSwitcher() {

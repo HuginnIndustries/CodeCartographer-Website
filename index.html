@@ -3,11 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>CodeCartographer | Structured reverse-engineering for unfamiliar codebases</title>
-<meta name="description" content="CodeCartographer guides LLMs through a phased analysis of source code: architecture map, defect scan, behavioral contracts, protocol documentation, porting synthesis, and reimplementation spec.">
+<title>CodeCartographer | Map existing software. Plan what comes next.</title>
+<meta name="description" content="CodeCartographer turns unfamiliar code into evidence-backed specifications, then combines confirmed specs with a product vision to produce a provenance-backed project plan.">
 <meta name="theme-color" content="#141413">
 <meta property="og:title" content="CodeCartographer">
-<meta property="og:description" content="A structured reverse-engineering toolkit for understanding unfamiliar codebases with phased, evidence-tagged LLM analysis.">
+<meta property="og:description" content="Map unfamiliar code into evidence-backed specifications, then synthesize confirmed designs into a traceable project plan.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://codecarto.dev/">
 <meta name="twitter:card" content="summary_large_image">
@@ -41,24 +41,26 @@
     <div class="hero-copy">
       <div class="hero-eyebrow">
         <span class="dot"></span>
-        Reverse-engineering toolkit · v0.11.0
+        Evidence-backed software cartography · v0.11.0
       </div>
-      <h1>Understand unfamiliar codebases <em>with a process instead of a lucky prompt.</em></h1>
+      <h1>Understand existing software. <em>Plan what comes next.</em></h1>
       <p class="hero-sub">
-        CodeCartographer turns "explain this repo" into a staged investigation. Architecture, defect
-        scan, behavioral contracts, protocol notes, porting synthesis, and a reimplementation spec.
-        Each finding is evidence-tagged so confidence stays visible.
+        CodeCartographer turns “explain this repo” into a staged, evidence-backed investigation—then
+        combines explicitly confirmed specifications with a new product vision to create a traceable
+        implementation plan.
       </p>
       <div class="hero-actions">
         <a href="docs.html" class="btn btn-primary">Start with the docs</a>
         <a href="https://www.npmjs.com/package/codecartographer-pi" class="btn btn-secondary">Install from npm</a>
         <a href="features.html" class="btn btn-ghost">Tour the pipeline</a>
+        <a href="https://github.com/HuginnIndustries/CodeCartographer/blob/main/docs/build-week-2026.md" class="btn btn-ghost">Build Week demo</a>
       </div>
       <div class="hero-meta">
         <span><b>Pi</b> extension</span>
         <span><b>MCP</b> server</span>
         <span><b>Drop-in</b> template</span>
         <span><b>MIT</b> licensed</span>
+        <span><b>Human-gated</b> synthesis</span>
       </div>
     </div>
 
@@ -107,6 +109,11 @@
         <h3>Pick up where you left off.</h3>
         <p>The filesystem—not the conversation—is durable memory. A fresh LLM session reads the status and findings, then resumes without depending on compacted chat history.</p>
       </div>
+      <div class="card-elevated">
+        <span class="pill pill-plum" style="margin-bottom:14px;display:inline-block">Synthesis</span>
+        <h3>Specs become a project plan.</h3>
+        <p>Versioned library entries are proposed against a vision, explicitly confirmed by a human, merged with conflicts intact, and transformed into work packages with a decision-level provenance ledger.</p>
+      </div>
     </div>
   </div>
 </section>
@@ -141,6 +148,10 @@
       <div class="artifact" data-reveal>
         <h3>Reimplementation spec</h3>
         <p>Language-agnostic build plan with modules, acceptance scenarios, and known unknowns.</p>
+      </div>
+      <div class="artifact" data-reveal>
+        <h3>Evidence-backed project plan</h3>
+        <p>Confirmed specifications become architecture, work packages, acceptance gates, conflict dispositions, and a decision-level provenance ledger.</p>
       </div>
     </div>
   </div>

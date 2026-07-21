@@ -31,7 +31,7 @@ test("every public version label matches the authoritative package version", asy
     assert.match(footer, new RegExp(`v${pkg.version.replaceAll(".", "\\.")}`), `${name} footer must show v${pkg.version}`);
   }
   const index = await read(join(SITE_ROOT, "index.html"));
-  assert.match(index, new RegExp(`Reverse-engineering toolkit · v${pkg.version.replaceAll(".", "\\.")}`));
+  assert.match(index, new RegExp(`Evidence-backed software cartography · v${pkg.version.replaceAll(".", "\\.")}`));
 });
 
 test("MCP documentation names every tool registered by the upstream server", async () => {
@@ -51,6 +51,16 @@ test("pipeline selector mirrors the authoritative pipeline variants", async () =
   const pipelineFiles = (await readdir(workflowDir)).filter((name) => name.startsWith("pipeline") && name.endsWith(".yaml"));
   const features = await read(join(SITE_ROOT, "features.html"));
   assert.equal((features.match(/class="pipeline-tab/g) ?? []).length, pipelineFiles.length);
+});
+
+test("synthesis documentation preserves the human confirmation and provenance contracts", async () => {
+  const docs = await read(join(SITE_ROOT, "docs.html"));
+  const features = await read(join(SITE_ROOT, "features.html"));
+  assert.match(docs, /explicit human selection/i);
+  assert.match(docs, /version-pinned/i);
+  assert.match(docs, /provenance ledger/i);
+  assert.match(features, /human-confirmed/i);
+  assert.match(features, /decision-level provenance/i);
 });
 
 test("continuity copy treats THREAD_LOG as a closeout index, not the durable summary store", async () => {

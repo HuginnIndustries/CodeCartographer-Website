@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Docs — CodeCartographer</title>
-<meta name="description" content="Installation and configuration: drop-in template, Pi-mono extension, MCP server, pipeline selection, and cPanel deployment.">
+<meta name="description" content="Installation and configuration: drop-in template, Pi-mono extension, MCP server, pipeline selection, and GitHub Pages deployment.">
 <meta name="theme-color" content="#141413">
 <link rel="canonical" href="https://codecarto.dev/docs.html">
 <link rel="icon" href="logo.svg" type="image/svg+xml">
@@ -228,30 +228,29 @@ npm install codecartographer-pi</pre>
   </div>
 </section>
 
-<!-- =================== Deploy to cPanel ========== -->
+<!-- =================== Deploy with GitHub Pages === -->
 <section class="section-dark">
   <div class="container">
-    <div class="overline">05 · Deploy to Namecheap cPanel</div>
-    <h2>Upload the static bundle and point the domain at it.</h2>
+    <div class="overline">05 · Deploy with GitHub Pages</div>
+    <h2>Merge to main and let GitHub Pages publish the site.</h2>
     <p class="section-sub">
-      This site is plain HTML, CSS, and JavaScript. Drop it into <code>public_html</code> on your
-      cPanel host and it is live.
+      This site is plain HTML, CSS, and JavaScript. GitHub Pages serves the repository's
+      <code>main</code> branch from the repository root at <code>codecarto.dev</code>.
     </p>
 
     <div class="split">
       <div class="deploy-steps" data-reveal>
         <ol>
-          <li>Open Namecheap cPanel and navigate to <strong>File Manager</strong>.</li>
-          <li>Open the document root for <code>codecarto.dev</code>. For a primary domain this is <code>public_html/</code>. For an addon domain it is the folder assigned as that domain's document root.</li>
-          <li>Upload the entire contents of this <code>website/</code> folder into that document root.</li>
-          <li>Confirm <code>index.html</code> sits at the top of the document root.</li>
-          <li>Enable <strong>AutoSSL</strong> for the domain in cPanel.</li>
-          <li>Force HTTPS with the included <code>.htaccess</code> file or the cPanel domain settings.</li>
+          <li>Open a pull request targeting <code>main</code>.</li>
+          <li>Run <code>npm test</code> against the authoritative CodeCartographer checkout and wait for the pull-request checks to pass.</li>
+          <li>Merge the pull request. GitHub Pages automatically starts a deployment from <code>main</code> at <code>/(root)</code>.</li>
+          <li>Confirm the latest build completed in <strong>Settings → Pages</strong>.</li>
+          <li>Keep <code>CNAME</code> set to <code>codecarto.dev</code>. GitHub Pages manages the approved TLS certificate and enforces HTTPS.</li>
           <li>Visit <code>https://codecarto.dev/</code> and hard refresh.</li>
         </ol>
       </div>
       <div class="card-elevated" style="background:rgba(245,239,216,0.06);border:1px solid rgba(245,239,216,0.14);box-shadow:none" data-reveal>
-        <div class="overline">Files to upload</div>
+        <div class="overline">Published site files</div>
         <ul style="list-style:none;padding:0;display:grid;gap:6px;font-family:var(--font-mono);font-size:13px;color:rgba(245,239,216,0.8);margin:0">
           <li>index.html</li>
           <li>features.html</li>
@@ -260,7 +259,7 @@ npm install codecartographer-pi</pre>
           <li>site.css</li>
           <li>colors_and_type.css</li>
           <li>script.js</li>
-          <li>.htaccess</li>
+          <li>CNAME</li>
           <li>robots.txt</li>
           <li>sitemap.xml</li>
         </ul>

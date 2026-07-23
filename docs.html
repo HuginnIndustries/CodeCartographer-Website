@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Docs — CodeCartographer</title>
-<meta name="description" content="Installation and configuration: drop-in template, Pi-mono extension, MCP server, pipeline selection, and cPanel deployment.">
+<meta name="description" content="Installation and configuration: drop-in template, Pi-mono extension, MCP server, pipeline selection, and GitHub Pages deployment.">
 <meta name="theme-color" content="#141413">
 <link rel="canonical" href="https://codecarto.dev/docs.html">
 <link rel="icon" href="logo.svg" type="image/svg+xml">
@@ -59,7 +59,7 @@
 
     <div class="card-elevated" style="margin-bottom:21px" data-reveal>
       <div class="overline">Step 2: Pick a pipeline (optional)</div>
-      <p style="margin-bottom:14px;color:var(--color-muted)">Edit <code>.codecarto/workflow/status.yaml</code> and set the pipeline field. Defaults to the 7-phase full analysis with a split defect scan. Pi and MCP users can run <code>/codecarto-switch-pipeline</code> instead of hand-editing.</p>
+      <p style="margin-bottom:14px;color:var(--color-muted)">Edit <code>.codecarto/workflow/status.yaml</code> and set the pipeline field. Defaults to the 7-phase full analysis with a split defect scan.</p>
       <pre class="code-block"><span class="com"># Available pipeline paths:</span>
 pipeline: workflow/pipeline-full-with-deep-audit.yaml  <span class="com"># 7-phase (default)</span>
 pipeline: workflow/pipeline-full-with-audit.yaml       <span class="com"># 6-phase</span>
@@ -216,8 +216,7 @@ npm install codecartographer-pi</pre>
       <code>codecarto_skill</code>, <code>codecarto_publish</code>, <code>codecarto_library_list</code>,
       <code>codecarto_library_reindex</code>, <code>codecarto_library_init</code>,
       <code>codecarto_config</code>, <code>codecarto_vision</code>, <code>codecarto_open</code>,
-      <code>codecarto_usage</code>, <code>codecarto_dashboard</code>, and
-      <code>codecarto_list_skills</code>.
+      <code>codecarto_usage</code>, <code>codecarto_dashboard</code>, and <code>codecarto_list_skills</code>.
       Workflow tools accept an absolute <code>cwd</code> for the target repository; library tools
       accept a configured or explicit library path.
     </p>
@@ -239,7 +238,7 @@ npm install codecartographer-pi</pre>
       <div class="card-elevated" style="background:rgba(245,239,216,0.06);border:1px solid rgba(245,239,216,0.14);box-shadow:none" data-reveal>
         <div class="overline">Start</div>
         <pre class="code-block">/codecarto-init synthesis
-<span class="com"># Fill .codecarto/inputs/vision.md, or run /codecarto-vision for a guided interview</span>
+<span class="com"># Fill .codecarto/inputs/vision.md</span>
 /codecarto-next --auto</pre>
         <p>The first run creates a ranked proposal, completes that phase, and then intentionally stops at the confirmation preflight.</p>
       </div>
@@ -259,30 +258,29 @@ npm install codecartographer-pi</pre>
   </div>
 </section>
 
-<!-- =================== Deploy to cPanel ========== -->
+<!-- =================== Deploy with GitHub Pages === -->
 <section class="section-dark">
   <div class="container">
-    <div class="overline">05 · Deploy to Namecheap cPanel</div>
-    <h2>Upload the static bundle and point the domain at it.</h2>
+    <div class="overline">05 · Deploy with GitHub Pages</div>
+    <h2>Merge to main and let GitHub Pages publish the site.</h2>
     <p class="section-sub">
-      This site is plain HTML, CSS, and JavaScript. Drop it into <code>public_html</code> on your
-      cPanel host and it is live.
+      This site is plain HTML, CSS, and JavaScript. GitHub Pages serves the repository's
+      <code>main</code> branch from the repository root at <code>codecarto.dev</code>.
     </p>
 
     <div class="split">
       <div class="deploy-steps" data-reveal>
         <ol>
-          <li>Open Namecheap cPanel and navigate to <strong>File Manager</strong>.</li>
-          <li>Open the document root for <code>codecarto.dev</code>. For a primary domain this is <code>public_html/</code>. For an addon domain it is the folder assigned as that domain's document root.</li>
-          <li>Upload the entire contents of this <code>website/</code> folder into that document root.</li>
-          <li>Confirm <code>index.html</code> sits at the top of the document root.</li>
-          <li>Enable <strong>AutoSSL</strong> for the domain in cPanel.</li>
-          <li>Force HTTPS with the included <code>.htaccess</code> file or the cPanel domain settings.</li>
+          <li>Open a pull request targeting <code>main</code>.</li>
+          <li>Run <code>npm test</code> against the authoritative CodeCartographer checkout and wait for the pull-request checks to pass.</li>
+          <li>Merge the pull request. GitHub Pages automatically starts a deployment from <code>main</code> at <code>/(root)</code>.</li>
+          <li>Confirm the latest build completed in <strong>Settings → Pages</strong>.</li>
+          <li>Keep <code>CNAME</code> set to <code>codecarto.dev</code>. GitHub Pages manages the approved TLS certificate and enforces HTTPS.</li>
           <li>Visit <code>https://codecarto.dev/</code> and hard refresh.</li>
         </ol>
       </div>
       <div class="card-elevated" style="background:rgba(245,239,216,0.06);border:1px solid rgba(245,239,216,0.14);box-shadow:none" data-reveal>
-        <div class="overline">Files to upload</div>
+        <div class="overline">Published site files</div>
         <ul style="list-style:none;padding:0;display:grid;gap:6px;font-family:var(--font-mono);font-size:13px;color:rgba(245,239,216,0.8);margin:0">
           <li>index.html</li>
           <li>features.html</li>
@@ -291,7 +289,7 @@ npm install codecartographer-pi</pre>
           <li>site.css</li>
           <li>colors_and_type.css</li>
           <li>script.js</li>
-          <li>.htaccess</li>
+          <li>CNAME</li>
           <li>robots.txt</li>
           <li>sitemap.xml</li>
         </ul>
@@ -364,7 +362,7 @@ npm install codecartographer-pi</pre>
     </div>
   </div>
   <div class="site-footer-bottom">
-    <span>v0.12.9 · MIT License</span>
+    <span>v0.12.10 · MIT License</span>
     <span>codecarto.dev</span>
   </div>
 </footer>

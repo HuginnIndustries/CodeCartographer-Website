@@ -59,7 +59,7 @@
 
     <div class="card-elevated" style="margin-bottom:21px" data-reveal>
       <div class="overline">Step 2: Pick a pipeline (optional)</div>
-      <p style="margin-bottom:14px;color:var(--color-muted)">Edit <code>.codecarto/workflow/status.yaml</code> and set the pipeline field. Defaults to the 7-phase full analysis with a split defect scan.</p>
+      <p style="margin-bottom:14px;color:var(--color-muted)">Edit <code>.codecarto/workflow/status.yaml</code> and set the pipeline field. Defaults to the 7-phase full analysis with a split defect scan. Pi and MCP users can run <code>/codecarto-switch-pipeline</code> instead of hand-editing.</p>
       <pre class="code-block"><span class="com"># Available pipeline paths:</span>
 pipeline: workflow/pipeline-full-with-deep-audit.yaml  <span class="com"># 7-phase (default)</span>
 pipeline: workflow/pipeline-full-with-audit.yaml       <span class="com"># 6-phase</span>
@@ -138,6 +138,34 @@ pi install git:github.com/HuginnIndustries/CodeCartographer</pre>
           <p style="color:var(--color-surface);font-weight:500;margin-bottom:4px"><code>/codecarto-usage</code></p>
           <p>Show cumulative and per-phase token usage from local phase runs.</p>
         </div>
+        <div>
+          <p style="color:var(--color-surface);font-weight:500;margin-bottom:4px"><code>/codecarto-open</code></p>
+          <p>Activate an existing workspace without resetting state.</p>
+        </div>
+        <div>
+          <p style="color:var(--color-surface);font-weight:500;margin-bottom:4px"><code>/codecarto-vision</code></p>
+          <p>Run a guided product discovery interview for the synthesis pipeline.</p>
+        </div>
+        <div>
+          <p style="color:var(--color-surface);font-weight:500;margin-bottom:4px"><code>/codecarto-switch-pipeline</code></p>
+          <p>Switch the active pipeline without losing findings or progress.</p>
+        </div>
+        <div>
+          <p style="color:var(--color-surface);font-weight:500;margin-bottom:4px"><code>/codecarto-publish</code></p>
+          <p>Publish the reimplementation spec to a configured library.</p>
+        </div>
+        <div>
+          <p style="color:var(--color-surface);font-weight:500;margin-bottom:4px"><code>/codecarto-library-init</code></p>
+          <p>Initialize a library directory with marker and config.</p>
+        </div>
+        <div>
+          <p style="color:var(--color-surface);font-weight:500;margin-bottom:4px"><code>/codecarto-config</code></p>
+          <p>Show the effective merged configuration.</p>
+        </div>
+        <div>
+          <p style="color:var(--color-surface);font-weight:500;margin-bottom:4px"><code>/codecarto-dashboard</code></p>
+          <p>Regenerate the dashboard HTML.</p>
+        </div>
       </div>
     </div>
   </div>
@@ -147,7 +175,7 @@ pi install git:github.com/HuginnIndustries/CodeCartographer</pre>
 <section class="section">
   <div class="container">
     <div class="overline">03 · MCP server</div>
-    <h2>10 tools for any MCP-compatible host.</h2>
+    <h2>18 tools for any MCP-compatible host.</h2>
     <p class="section-sub">
       The same core primitives exposed as a Model Context Protocol server. Wire it into Claude Code,
       Claude Desktop, or any MCP host. The host runs the LLM, isolates phase sessions, and controls
@@ -182,11 +210,14 @@ npm install codecartographer-pi</pre>
     </div>
 
     <p style="margin-top:28px;font-size:15px;color:var(--color-muted)" data-reveal>
-      The server exposes 10 workflow and library tools: <code>codecarto_init</code>,
-      <code>codecarto_status</code>, <code>codecarto_next</code>, <code>codecarto_phase</code>,
-      <code>codecarto_validate</code>, <code>codecarto_complete</code>, and
-      <code>codecarto_skill</code>, plus <code>codecarto_publish</code>,
-      <code>codecarto_library_list</code>, and <code>codecarto_library_reindex</code>.
+      The server exposes 18 workflow and library tools: <code>codecarto_init</code>,
+      <code>codecarto_status</code>, <code>codecarto_switch_pipeline</code>, <code>codecarto_next</code>,
+      <code>codecarto_phase</code>, <code>codecarto_validate</code>, <code>codecarto_complete</code>,
+      <code>codecarto_skill</code>, <code>codecarto_publish</code>, <code>codecarto_library_list</code>,
+      <code>codecarto_library_reindex</code>, <code>codecarto_library_init</code>,
+      <code>codecarto_config</code>, <code>codecarto_vision</code>, <code>codecarto_open</code>,
+      <code>codecarto_usage</code>, <code>codecarto_dashboard</code>, and
+      <code>codecarto_list_skills</code>.
       Workflow tools accept an absolute <code>cwd</code> for the target repository; library tools
       accept a configured or explicit library path.
     </p>
@@ -208,7 +239,7 @@ npm install codecartographer-pi</pre>
       <div class="card-elevated" style="background:rgba(245,239,216,0.06);border:1px solid rgba(245,239,216,0.14);box-shadow:none" data-reveal>
         <div class="overline">Start</div>
         <pre class="code-block">/codecarto-init synthesis
-<span class="com"># Fill .codecarto/inputs/vision.md</span>
+<span class="com"># Fill .codecarto/inputs/vision.md, or run /codecarto-vision for a guided interview</span>
 /codecarto-next --auto</pre>
         <p>The first run creates a ranked proposal, completes that phase, and then intentionally stops at the confirmation preflight.</p>
       </div>
@@ -333,7 +364,7 @@ npm install codecartographer-pi</pre>
     </div>
   </div>
   <div class="site-footer-bottom">
-    <span>v0.12.0 · MIT License</span>
+    <span>v0.12.9 · MIT License</span>
     <span>codecarto.dev</span>
   </div>
 </footer>

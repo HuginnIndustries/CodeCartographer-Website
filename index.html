@@ -41,13 +41,13 @@
     <div class="hero-copy">
       <div class="hero-eyebrow">
         <span class="dot"></span>
-        Evidence-backed software cartography · v0.12.11
+        Works with Pi, Claude Code, Cursor, and Codex · v0.12.11
       </div>
-      <h1>Understand existing software. <em>Plan what comes next.</em></h1>
+      <h1>Understand an unfamiliar codebase. <em>Get a spec you can rebuild from.</em></h1>
       <p class="hero-sub">
-        CodeCartographer turns “explain this repo” into a staged, evidence-backed investigation—then
-        combines explicitly confirmed specifications with a new product vision to create a traceable
-        implementation plan.
+        CodeCartographer turns a repository into layered architecture, behavioral contracts, defect
+        findings, and a language-agnostic reimplementation spec — with each phase validated before the
+        next one runs, so nothing is built on a hallucinated finding.
       </p>
       <div class="hero-actions">
         <a href="docs.html" class="btn btn-primary">Start with the docs</a>
@@ -80,6 +80,23 @@
         </div>
       </div>
     </aside>
+  </div>
+</section>
+
+<!-- =================== Dashboard ================== -->
+<section class="section">
+  <div class="container">
+    <div class="overline">The dashboard</div>
+    <h2>Every run writes a self-contained report.</h2>
+    <p class="section-sub">
+      A single HTML file in <code>.codecarto/dashboard.html</code> — no JavaScript, no external assets, no
+      network calls. Phase status, per-phase token and tool-use telemetry, open questions, and blockers,
+      rendered straight from the workspace on disk.
+    </p>
+    <figure class="dashboard-figure">
+      <img src="dashboard-hero.png" width="1280" height="900" loading="lazy" decoding="async"
+        alt="CodeCartographer dashboard: a mid-run pipeline with the architecture and mechanical defect-scan phases complete, contracts in progress, and per-phase token and tool-use telemetry.">
+    </figure>
   </div>
 </section>
 
@@ -240,11 +257,11 @@ Read .codecarto/GUIDE.md and begin the analysis.</pre>
     <div class="grid-3">
       <div class="card">
         <h3 style="font-size:18px">Pi extension</h3>
-        <p>Install the package and use <code>/codecarto-init</code>, <code>/codecarto-next</code>, <code>/codecarto-status</code>, and more. Phase sub-agents run in parallel widgets with live token tracking.</p>
+        <p>Install the package and use <code>/codecarto-init</code>, <code>/codecarto-next</code>, <code>/codecarto-status</code>, <code>/codecarto-vision</code>, <code>/codecarto-switch-pipeline</code>, and more — 15 commands in all. Phase sub-agents run in parallel widgets with live token tracking.</p>
       </div>
       <div class="card">
         <h3 style="font-size:18px">MCP server</h3>
-        <p>18 tools for workflow control and library operations. Wire them into Claude Code, Claude Desktop, or any MCP-compatible host. The host owns phase sessions and compaction; CodeCartographer supplies byte-identical prompts and validation.</p>
+        <p>18 tools for workflow control and library operations. Wire them into Claude Code, Claude Desktop, or any MCP-compatible host. The host owns phase sessions and compaction; CodeCartographer supplies byte-identical prompts and validation. <a href="https://github.com/HuginnIndustries/CodeCartographer/blob/main/docs/mcp-quickstart.md">Copy-paste setup for Claude Code, Cursor, Codex, and opencode →</a></p>
       </div>
       <div class="card">
         <h3 style="font-size:18px">Drop-in template</h3>

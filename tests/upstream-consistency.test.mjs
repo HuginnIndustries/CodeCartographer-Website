@@ -31,7 +31,29 @@ test("every public version label matches the authoritative package version", asy
     assert.match(footer, new RegExp(`v${pkg.version.replaceAll(".", "\\.")}`), `${name} footer must show v${pkg.version}`);
   }
   const index = await read(join(SITE_ROOT, "index.html"));
-  assert.match(index, new RegExp(`Evidence-backed software cartography · v${pkg.version.replaceAll(".", "\\.")}`));
+  assert.match(index, new RegExp(`· v${pkg.version.replaceAll(".", "\\.")}`), "index.html hero eyebrow must carry the current version");
+});
+
+test("Pi extension copy names commands the upstream extension actually registers", async () => {
+  const ext = await read(join(UPSTREAM_ROOT, "extensions", "codecarto", "index.ts"));
+  const registered = new Set(
+    [...ext.matchAll(/registerCommand\("([a-z-]+)"/g)].map((match) => match[1]),
+  );
+  assert.ok(registered.size > 0, "expected to discover Pi commands from upstream index.ts");
+
+  // Any /codecarto-* command the site advertises must exist upstream. This is
+  // the check that was missing when the site quietly dropped commands that the
+  // extension does register.
+  for (const name of await htmlFiles()) {
+    const html = await read(join(SITE_ROOT, name));
+    const cited = [...html.matchAll(/\/(codecarto-[a-z-]+)/g)].map((match) => match[1]);
+    for (const command of new Set(cited)) {
+      assert.ok(registered.has(command), `${name} cites /${command}, which the upstream extension does not register`);
+    }
+  }
+
+  const index = await read(join(SITE_ROOT, "index.html"));
+  assert.match(index, new RegExp(`${registered.size} commands`), "index.html must state the current Pi command count");
 });
 
 test("MCP documentation names every tool registered by the upstream server", async () => {

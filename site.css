@@ -928,3 +928,21 @@ pre.code-block {
     gap: 12px;
   }
 }
+
+/* Dashboard screenshot figure (index.html). Scales down on narrow viewports
+   without letting the page scroll sideways. */
+.dashboard-figure {
+  margin: 32px 0 0;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 12px;
+  overflow: hidden;
+}
+
+.dashboard-figure img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: calc(var(--radius-md) - 6px);
+}

@@ -17,6 +17,23 @@ const pipelineData = {
     ],
     note: "The default pipeline. Best when you need the deepest defect analysis grounded in full behavioral understanding.",
   },
+  "scout-first": {
+    kicker: "8 phases",
+    title: "Scout first",
+    description:
+      "The full deep-audit run behind a Broad-Side scout phase: a completed batch reconnaissance run is distilled into a routing brief, and every later phase must confirm, dismiss, or carry forward the leads addressed to it.",
+    phases: [
+      "Broad-Side scout brief",
+      "Architecture",
+      "Defect scan (mechanical)",
+      "Contracts",
+      "Protocols",
+      "Defect scan (semantic)",
+      "Porting",
+      "Reimplementation spec",
+    ],
+    note: "The scout phase reads a completed Broad-Side run — it never submits batches and never spends. With no run on disk it writes an explicitly empty brief and proceeds exactly as full-with-deep-audit.",
+  },
   "full-with-audit": {
     kicker: "6 phases",
     title: "Full with audit",

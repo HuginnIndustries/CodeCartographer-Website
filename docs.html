@@ -67,6 +67,7 @@ pipeline: workflow/pipeline.yaml                       <span class="com"># 5-pha
 pipeline: workflow/pipeline-defect-scan.yaml           <span class="com"># 2-phase</span>
 pipeline: workflow/pipeline-lite.yaml                  <span class="com"># 3-phase</span>
 pipeline: workflow/pipeline-architecture-only.yaml     <span class="com"># 1-phase</span>
+pipeline: workflow/pipeline-scout-first.yaml           <span class="com"># 8-phase deep audit behind a Broad-Side scout brief</span>
 pipeline: workflow/pipeline-synthesis.yaml             <span class="com"># 4-phase forward synthesis (Pi/MCP only)</span></pre>
     </div>
 
@@ -166,6 +167,10 @@ pi install git:github.com/HuginnIndustries/CodeCartographer</pre>
           <p style="color:var(--color-surface);font-weight:500;margin-bottom:4px"><code>/codecarto-dashboard</code></p>
           <p>Regenerate the dashboard HTML.</p>
         </div>
+        <div>
+          <p style="color:var(--color-surface);font-weight:500;margin-bottom:4px"><code>/codecarto-broadside</code></p>
+          <p>Batch reconnaissance: submit, collect, status, models. Prices the run per lens and asks before spending.</p>
+        </div>
       </div>
     </div>
   </div>
@@ -175,7 +180,7 @@ pi install git:github.com/HuginnIndustries/CodeCartographer</pre>
 <section class="section">
   <div class="container">
     <div class="overline">03 · MCP server</div>
-    <h2>18 tools for any MCP-compatible host.</h2>
+    <h2>22 tools for any MCP-compatible host.</h2>
     <p class="section-sub">
       The same core primitives exposed as a Model Context Protocol server. Wire it into Claude Code,
       Claude Desktop, or any MCP host. The host runs the LLM, isolates phase sessions, and controls
@@ -210,23 +215,60 @@ npm install codecartographer-pi</pre>
     </div>
 
     <p style="margin-top:28px;font-size:15px;color:var(--color-muted)" data-reveal>
-      The server exposes 18 workflow and library tools: <code>codecarto_init</code>,
-      <code>codecarto_status</code>, <code>codecarto_switch_pipeline</code>, <code>codecarto_next</code>,
+      The server exposes 22 workflow, library, and reconnaissance tools: <code>codecarto_init</code>,
+      <code>codecarto_open</code>, <code>codecarto_vision</code>, <code>codecarto_status</code>,
+      <code>codecarto_switch_pipeline</code>, <code>codecarto_next</code>,
       <code>codecarto_phase</code>, <code>codecarto_validate</code>, <code>codecarto_complete</code>,
-      <code>codecarto_skill</code>, <code>codecarto_publish</code>, <code>codecarto_library_list</code>,
-      <code>codecarto_library_reindex</code>, <code>codecarto_library_init</code>,
-      <code>codecarto_config</code>, <code>codecarto_vision</code>, <code>codecarto_open</code>,
-      <code>codecarto_usage</code>, <code>codecarto_dashboard</code>, and <code>codecarto_list_skills</code>.
+      <code>codecarto_skill</code>, <code>codecarto_list_skills</code>, <code>codecarto_guide</code>,
+      <code>codecarto_amend</code>, <code>codecarto_refresh_scaffold</code>,
+      <code>codecarto_publish</code>, <code>codecarto_library_init</code>, <code>codecarto_library_list</code>,
+      <code>codecarto_library_reindex</code>, <code>codecarto_config</code>,
+      <code>codecarto_usage</code>, <code>codecarto_dashboard</code>, and <code>codecarto_broadside</code>.
       Workflow tools accept an absolute <code>cwd</code> for the target repository; library tools
       accept a configured or explicit library path.
     </p>
   </div>
 </section>
 
+<!-- =================== Broad-Side ================= -->
+<section class="section">
+  <div class="container">
+    <div class="overline">04 · Broad-Side reconnaissance</div>
+    <h2>Scout a repository before the expensive run.</h2>
+    <p class="section-sub">
+      Broad-Side fires six analysis lenses at any git repository as asynchronous OpenRouter Batch API
+      jobs — roughly half of synchronous pricing, no workspace required. Submit prices the run per
+      lens and refuses anything over <code>max_cost</code>; results land in
+      <code>.codecarto/broadside/</code> as an executive synthesis and a P0–P3 triage work order of
+      unverified leads. The <code>scout-first</code> pipeline distills them into a brief every
+      interactive phase must account for.
+    </p>
+
+    <div class="grid-2">
+      <div class="card-elevated" data-reveal>
+        <div class="overline">MCP</div>
+        <pre class="code-block">codecarto_broadside {cwd, action: "submit"}
+codecarto_broadside {cwd, action: "collect"}</pre>
+        <p style="margin-top:14px;color:var(--color-muted)">Refuses a run over <code>max_cost</code> until the caller passes <code>force: true</code>. Also: <code>status</code> and <code>models</code> (the batch-model catalog with live pricing).</p>
+      </div>
+      <div class="card-elevated" data-reveal>
+        <div class="overline">Pi extension</div>
+        <pre class="code-block">/codecarto-broadside submit
+/codecarto-broadside collect</pre>
+        <p style="margin-top:14px;color:var(--color-muted)">Shows the per-lens cost breakdown and asks — approval is the force flag. Live per-lens progress while batches poll.</p>
+      </div>
+    </div>
+
+    <div class="compatibility-band" style="margin-top:28px" data-reveal>
+      <p style="margin:0">The OpenRouter key comes from <code>OPENROUTER_API_KEY</code> or <code>.codecarto/broadside/config.yaml</code> — never from a command argument, which would land it in the session transcript. Findings are unverified scouting leads, never evidence.</p>
+    </div>
+  </div>
+</section>
+
 <!-- =================== Forward synthesis ========= -->
 <section class="section-dark">
   <div class="container">
-    <div class="overline">04 · Forward synthesis</div>
+    <div class="overline">05 · Forward synthesis</div>
     <h2>Turn confirmed software maps into a traceable build plan.</h2>
     <p class="section-sub">
       The synthesis pipeline runs through Pi or MCP. It combines a product vision with reusable,
@@ -261,7 +303,7 @@ npm install codecartographer-pi</pre>
 <!-- =================== Deploy with GitHub Pages === -->
 <section class="section-dark">
   <div class="container">
-    <div class="overline">05 · Deploy with GitHub Pages</div>
+    <div class="overline">06 · Deploy with GitHub Pages</div>
     <h2>Merge to main and let GitHub Pages publish the site.</h2>
     <p class="section-sub">
       This site is plain HTML, CSS, and JavaScript. GitHub Pages serves the repository's
@@ -301,12 +343,13 @@ npm install codecartographer-pi</pre>
 <!-- =================== Token usage =============== -->
 <section class="section">
   <div class="container">
-    <div class="overline">06 · Token usage and cost</div>
+    <div class="overline">07 · Token usage and cost</div>
     <h2>What to expect on your first run.</h2>
     <p class="section-sub">
       CodeCartographer reads your source code multiple times across phases and produces thousands of
       words of structured output. The fixed template overhead is about 27,000 tokens across a
-      6-phase run. Source code reading is the dominant variable cost.
+      6-phase run. Source code reading is the dominant variable cost. A Broad-Side scout pass over a
+      medium repository typically costs cents at batch pricing and tells the expensive run where to look.
     </p>
 
     <div class="grid-2">
@@ -362,7 +405,7 @@ npm install codecartographer-pi</pre>
     </div>
   </div>
   <div class="site-footer-bottom">
-    <span>v0.12.11 · MIT License</span>
+    <span>v0.17.0 · MIT License</span>
     <span>codecarto.dev</span>
   </div>
 </footer>

@@ -160,6 +160,11 @@
         <p>Behavior or assumption that may not survive a rewrite or language change.</p>
       </div>
       <div class="evidence-badge">
+        <div class="icon">🌐</div>
+        <h4>External-behavior claim</h4>
+        <p>About a system the code only calls — a server, engine, driver, API. Unverifiable by reading this source; needs a runtime probe.</p>
+      </div>
+      <div class="evidence-badge">
         <div class="icon">❓</div>
         <h4>Open question</h4>
         <p>Could not determine from available sources. Needs human input or deeper analysis.</p>
@@ -169,8 +174,10 @@
     <div class="card-elevated" style="margin-top:28px;background:var(--color-surface-alt)" data-reveal>
       <div class="overline" style="margin-bottom:6px">Discipline rule</div>
       <p style="color:var(--color-text);font-size:16px;line-height:1.55;margin:0">
-        If an LLM cannot classify a finding with one of these four tags, the finding is not specific
-        enough to be useful. Vague assertions get rejected by the validation protocol.
+        If an LLM cannot classify a finding with one of these five tags, the finding is not specific
+        enough to be useful. Vague assertions get rejected by the validation protocol — and the evidence level
+        bounds the action: an <em>external-behavior claim</em> or <em>open question</em> can never carry a settled
+        fix action. Validation reads the findings tables and fails a defect report that pairs them.
       </p>
     </div>
   </div>
@@ -417,7 +424,7 @@
     </div>
   </div>
   <div class="site-footer-bottom">
-    <span>v0.17.0 · MIT License</span>
+    <span>v0.18.0 · MIT License</span>
     <span>codecarto.dev</span>
   </div>
 </footer>

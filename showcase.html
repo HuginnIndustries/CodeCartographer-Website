@@ -129,8 +129,9 @@
       <p style="color:rgba(245,239,216,0.85);font-size:15px;line-height:1.6;margin:0">
         Every finding gets a severity (<strong>critical</strong>, <strong>high</strong>,
         <strong>medium</strong>, <strong>low</strong>) and a recommended action:
-        <strong>fix before porting</strong>, <strong>port differently</strong>, or
-        <strong>leave behind</strong>. The deep audit variant adds a second semantic pass with full
+        <strong>fix before porting</strong>, <strong>port differently</strong>,
+        <strong>leave behind</strong>, or <strong>verify at runtime</strong> — the diagnosis names behavior of a
+        system the code only calls, so a runtime probe must confirm it before any fix is designed. The deep audit variant adds a second semantic pass with full
         contracts and protocols context, catching issues the mechanical scan misses.
       </p>
     </div>
@@ -269,7 +270,7 @@
     </div>
   </div>
   <div class="site-footer-bottom">
-    <span>v0.17.0 · MIT License</span>
+    <span>v0.18.0 · MIT License</span>
     <span>codecarto.dev</span>
   </div>
 </footer>

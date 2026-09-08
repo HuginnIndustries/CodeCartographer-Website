@@ -46,6 +46,13 @@ All tokens are defined in `colors_and_type.css`. Tune the palette there; the mar
 
 ## Verification
 
+Preview locally before opening a pull request — the site is static, so any file server works:
+
+```bash
+python3 -m http.server 8123   # then open http://127.0.0.1:8123/index.html
+```
+
+
 The static site is checked against an authoritative CodeCartographer checkout so version labels, MCP tool documentation, pipeline variants, and continuity terminology cannot drift silently.
 
 ```bash

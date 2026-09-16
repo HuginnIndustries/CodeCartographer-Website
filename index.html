@@ -41,7 +41,7 @@
     <div class="hero-copy">
       <div class="hero-eyebrow">
         <span class="dot"></span>
-        Works with Pi, Claude Code, Cursor, and Codex · v0.19.1
+        Works with Pi natively, and any other agent harness over MCP · v0.25.0
       </div>
       <h1>Understand an unfamiliar codebase. <em>Get a spec you can rebuild from.</em></h1>
       <p class="hero-sub">
@@ -71,8 +71,8 @@
       </div>
       <div class="preview-body">
         <div class="preview-line preview-root">● CodeCartographer</div>
-        <div class="preview-line done">├─ ✓ architecture <small>76 tools · 1.0M tokens</small></div>
-        <div class="preview-line done">├─ ✓ defect scan <small>91 tools · 2.4M tokens</small></div>
+        <div class="preview-line done">├─ ✓ architecture <small>97 tools · 5.8M tokens</small></div>
+        <div class="preview-line done">├─ ✓ defect scan <small>131 tools · 11.5M tokens</small></div>
         <div class="preview-line active">└─ ⠹ contracts <small>extracting behavior…</small></div>
         <div class="preview-card">
           <span class="pill pill-teal">Observed fact</span>
@@ -89,13 +89,13 @@
     <div class="overline">The dashboard</div>
     <h2>Every run writes a self-contained report.</h2>
     <p class="section-sub">
-      A single HTML file in <code>.codecarto/dashboard.html</code> — no JavaScript, no external assets, no
+      A single HTML file in <code>.codecarto/dashboard.html</code> — no external assets, no
       network calls. Phase status, per-phase token and tool-use telemetry, open questions, and blockers,
       rendered straight from the workspace on disk.
     </p>
     <figure class="dashboard-figure">
       <img src="dashboard-hero.png" width="1280" height="900" loading="lazy" decoding="async"
-        alt="CodeCartographer dashboard: a mid-run pipeline with the architecture and mechanical defect-scan phases complete, contracts in progress, and per-phase token and tool-use telemetry.">
+        alt="CodeCartographer's dashboard after running its full deep-audit pipeline on its own repository: 7/7 phases complete, 50M tokens and 618 tool uses across 77 minutes, seven open questions and twelve post-pipeline items routed, no blocking artifact gaps.">
     </figure>
   </div>
 </section>
@@ -338,7 +338,7 @@ Read .codecarto/GUIDE.md and begin the analysis.</pre>
     </div>
   </div>
   <div class="site-footer-bottom">
-    <span>v0.19.1 · MIT License</span>
+    <span>v0.25.0 · MIT License</span>
     <span>codecarto.dev</span>
   </div>
 </footer>

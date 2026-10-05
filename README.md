@@ -53,14 +53,15 @@ python3 -m http.server 8123   # then open http://127.0.0.1:8123/index.html
 ```
 
 
-The static site is checked against an authoritative CodeCartographer checkout so version labels, MCP tool documentation, pipeline variants, and continuity terminology cannot drift silently.
+The static site is checked against the git tag matching the latest published `codecartographer-pi` npm version. Version labels, MCP tool documentation, pipeline variants, and continuity terminology therefore track released code rather than unreleased `main`.
 
 ```bash
-# With the CodeCartographer repository as a sibling directory:
+# With the CodeCartographer repository as a sibling directory, check out the
+# tag matching `npm view codecartographer-pi version` first:
 npm test
 
 # Or point at another checkout explicitly:
 CODECARTO_UPSTREAM=/absolute/path/to/CodeCartographer npm test
 ```
 
-GitHub Actions checks out both repositories and runs the same source-boundary tests on every pull request and push to `main`.
+GitHub Actions resolves the published npm version, checks out the matching CodeCartographer tag, and runs these tests on every pull request and push to `main`. The `CI` workflow can also be run manually from the Actions tab.

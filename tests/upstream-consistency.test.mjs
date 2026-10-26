@@ -58,13 +58,21 @@ test("Pi extension copy names commands the upstream extension actually registers
 
 test("MCP documentation names every tool registered by the upstream server", async () => {
   const server = await read(join(UPSTREAM_ROOT, "mcp-server", "server.ts"));
-  const tools = [...server.matchAll(/name:\s*"(codecarto_[a-z_]+)"/g)].map((match) => match[1]);
-  assert.ok(tools.length > 0, "expected to discover MCP tools from upstream server.ts");
+  const tools = new Set(
+    [...server.matchAll(/name:\s*"(codecarto_[a-z_]+)"/g)].map((match) => match[1]),
+  );
+  // Some handlers, including experimental tools, are registered separately
+  // from the static schema list and therefore do not have a `name:` entry.
+  const handlers = server.match(/const HANDLERS:[\s\S]*?=\s*\{([\s\S]*?)\n\};/)?.[1] ?? "";
+  for (const match of handlers.matchAll(/\b(codecarto_[a-z_]+):\s*handle\w+/g)) {
+    tools.add(match[1]);
+  }
+  assert.ok(tools.size > 0, "expected to discover MCP tools from upstream server.ts");
 
   const docs = await read(join(SITE_ROOT, "docs.html"));
   const index = await read(join(SITE_ROOT, "index.html"));
-  assert.match(docs, new RegExp(`<h2>${tools.length} tools for any MCP-compatible host\\.<\\/h2>`));
-  assert.match(index, new RegExp(`${tools.length} tools`));
+  assert.match(docs, new RegExp(`<h2>${tools.size} tools for any MCP-compatible host\\.<\\/h2>`));
+  assert.match(index, new RegExp(`${tools.size} tools`));
   for (const tool of tools) assert.match(docs, new RegExp(`<code>${tool}<\\/code>`), `docs.html omits ${tool}`);
 });
 

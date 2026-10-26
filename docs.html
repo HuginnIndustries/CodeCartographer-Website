@@ -196,7 +196,7 @@ pi install git:github.com/HuginnIndustries/CodeCartographer</pre>
 <section class="section">
   <div class="container">
     <div class="overline">03 · MCP server</div>
-    <h2>22 tools for any MCP-compatible host.</h2>
+    <h2>23 tools for any MCP-compatible host.</h2>
     <p class="section-sub">
       The same core primitives exposed as a Model Context Protocol server. Wire it into Claude Code,
       Claude Desktop, or any MCP host. The host runs the LLM, isolates phase sessions, and controls
@@ -231,7 +231,7 @@ npm install codecartographer-pi</pre>
     </div>
 
     <p style="margin-top:28px;font-size:15px;color:var(--color-muted)" data-reveal>
-      The server exposes 22 workflow, library, and reconnaissance tools: <code>codecarto_init</code>,
+      The server exposes 23 workflow, library, and reconnaissance tools: <code>codecarto_init</code>,
       <code>codecarto_open</code>, <code>codecarto_vision</code>, <code>codecarto_status</code>,
       <code>codecarto_switch_pipeline</code>, <code>codecarto_next</code>,
       <code>codecarto_phase</code>, <code>codecarto_validate</code>, <code>codecarto_complete</code>,
@@ -239,7 +239,7 @@ npm install codecartographer-pi</pre>
       <code>codecarto_amend</code>, <code>codecarto_refresh_scaffold</code>,
       <code>codecarto_publish</code>, <code>codecarto_library_init</code>, <code>codecarto_library_list</code>,
       <code>codecarto_library_reindex</code>, <code>codecarto_config</code>,
-      <code>codecarto_usage</code>, <code>codecarto_dashboard</code>, and <code>codecarto_broadside</code>.
+      <code>codecarto_usage</code>, <code>codecarto_dashboard</code>, <code>codecarto_broadside</code>, and <code>codecarto_change</code>. The <code>codecarto_change</code> tool is EXPERIMENTAL and records engineering changes; it never executes anything.
       Workflow tools accept an absolute <code>cwd</code> for the target repository; library tools
       accept a configured or explicit library path.
     </p>
@@ -421,7 +421,7 @@ codecarto_broadside {cwd, action: "collect"}</pre>
     </div>
   </div>
   <div class="site-footer-bottom">
-    <span>v0.26.0 · MIT License</span>
+    <span>v0.27.0 · MIT License</span>
     <span>codecarto.dev</span>
   </div>
 </footer>
